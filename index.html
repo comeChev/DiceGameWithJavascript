@@ -15,7 +15,7 @@
     <!-- FONT REFERENCE -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <!-- JAVASCRIPT -->
-    <script src="./js/script.js"></script>
+    <script type="module" src="./js/script.js"></script>
   </head>
 
   <body class="container-fluid bg-dark text-light mainFontFam">
@@ -29,10 +29,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="#">Nouvelle partie</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Comment jouer ?</a>
               </li>
             </ul>
           </div>
@@ -41,14 +41,48 @@
     
     </header>
 
-    <main></main>
+    <main class="text-dark">
+      <div class="row container-fluid full-height">
+        <div class="col-12 col-lg-6 bg-player1 border-player">
+          <div class="row text-center full-height align-items-stretch">
+            <div class="col-12 col-md-8 col-lg-12 p-0">
+              <div class="h-75 center-all" id="p1">
+                <div>
+                  <h2>Player 1</h2>
+                  <h3>47/100</h3>
+                  <button class="btn btn-primary" id="btnHideLog">Cacher log</button>
+                </div>
+              </div>
+              <div class="h-25 center-all p-4" id="currentScoreP1">
+                <div class="col-8">
+                  <p class="m-0">Score en cours</p>
+                  <h4>12</h4>
+                </div>
+                <div class="col-4">
+                  <button class="btn btn-success">Garder le score</button>
+                </div>
+              </div>
+            </div>
+            <div class="d-none d-md-flex col-md-4 col-lg-12 center-all" id="logP1">
+             <div>Historique de la partie</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 bg-player2 gridTemplate">
+          <div class="row">Player</div>
+          <div class="row">Score global</div>
+          <div class="row">Historique</div>
+          <div class="row">Score en cours</div>
+        </div>
+      </div>
+    </main>
 
     <footer class="container-fluid text-center">
       <p>Dice Rolling Game @2022 All rights reserved.</p>
     </footer>
     
     <!-- BOOTSTRAP JAVASCRIPT -->
-    <script src="./js/bootstrap.min.js"></script>
+    <script type="module" src="./js/bootstrap.min.js"></script>
   </body>
 
   </html>

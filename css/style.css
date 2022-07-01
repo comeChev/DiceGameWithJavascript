@@ -1,3 +1,57 @@
 .mainFontFam{
   font-family: 'Lato', sans-serif;
 }
+.bg-player1{
+  background-color:antiquewhite;
+}
+.bg-player2{
+  background-color:bisque;
+}
+.border-player{
+  border: 3px solid red;
+}
+.full-height{
+  height: 100%;
+}
+
+.hide-log{
+  display: none;
+}
+.center-all{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.center-all-reverse{
+  
+
+}
+
+#p1{
+  background-color: aquamarine;
+}
+#currentScoreP1{
+  background-color: rgb(131, 206, 152);
+}
+#globalScoreP1{
+  background-color: burlywood;
+}
+#logP1{
+  background-color: cadetblue;
+}
+
+
+body{
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+header{
+  min-height: 50px;
+}
+footer{
+  min-height: 30px;
+}
+main{
+  min-height: 70%;
+}
