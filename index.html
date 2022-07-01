@@ -43,14 +43,14 @@
 
     <main class="text-dark">
       <div class="row container-fluid full-height">
-        <div class="col-12 col-lg-6 bg-player1 border-player">
+        <div class="col-12 col-lg-6 bg-player1 border-player" id="playerCadre1">
           <div class="row text-center full-height align-items-stretch">
             <div class="col-12 col-md-8 col-lg-12 p-0">
               <div class="h-75 center-all" id="p1">
                 <div>
                   <h2>Player 1</h2>
                   <h3>47/100</h3>
-                  <button class="btn btn-primary" id="btnHideLog">Cacher log</button>
+                  <button class="btn btn-primary" id="btnHideLogP1">Cacher log</button>
                 </div>
               </div>
               <div class="h-25 center-all p-4" id="currentScoreP1">
@@ -68,11 +68,31 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-6 bg-player2 gridTemplate">
-          <div class="row">Player</div>
-          <div class="row">Score global</div>
-          <div class="row">Historique</div>
-          <div class="row">Score en cours</div>
+        <div class="col-12 col-lg-6 bg-player2" id="playerCadre2">
+          <div class="row text-center full-height align-items-stretch">
+            <div class="col-12 col-md-8 col-lg-12 p-0">
+              <div class="h-75 center-all" id="p2">
+                <div>
+                  <h2>Player 2</h2>
+                  <h3>79/100</h3>
+                  <button class="btn btn-primary" id="btnHideLogP2">Cacher log</button>
+                </div>
+              </div>
+              <div class="h-25 center-all p-4" id="currentScoreP2">
+                <div class="col-8">
+                  <p class="m-0">Score en cours</p>
+                  <h4>0</h4>
+                </div>
+                <div class="col-4">
+                  <button class="btn btn-success">Garder le score</button>
+                </div>
+              </div>
+            </div>
+            <div class="d-none d-md-flex col-md-4 col-lg-12 center-all" id="logP2">
+             <div>Historique de la partie</div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </main>
