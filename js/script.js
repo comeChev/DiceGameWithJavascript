@@ -19,12 +19,29 @@ const btnLogP1 = document.querySelector('#btnHideLogP1')
 const btnLogP2 = document.querySelector('#btnHideLogP2')
 const logAreaP1 = document.querySelector("#logAreaP1")
 const logAreaP2 = document.querySelector("#logAreaP2")
+const p1Board = document.querySelector('#p1Board')
 
 // ---------------------------------------------------------
 // DECLARATION DES FONCTIONS
 // ---------------------------------------------------------
 
-let hideLogBtn =(name)=>{
+let changeOrderDiv=(divElement)=>{
+  if(divElement.firstChild.id != "p1"){
+    let divToMove = divElement.children[0]
+    divElement.children[0].remove()
+    divElement.appendChild(divToMove)
+  }
+}
+
+let loadPage =()=>{
+  if (!lgMediaQuery.matches){
+    changeOrderDiv(p1Board)
+    showLogBtn(btnLogP1)
+    showLogBtn(btnLogP2)
+  }
+}
+
+let showLogBtn =(name)=>{
   if(!name.classList.contains('d-none')){
     name.classList.add('d-none')
   } else {
@@ -43,9 +60,11 @@ let resetArea=(name)=>{name.value=""}
 // EXECUTION DU CODE
 // ---------------------------------------------------------
 
-mdMediaQuery.addEventListener('change', ()=>{
-  hideLogBtn(btnLogP1)
-  hideLogBtn(btnLogP2)
+window.onload =()=>loadPage()
+lgMediaQuery.addEventListener('change', ()=>{
+  showLogBtn(btnLogP1)
+  showLogBtn(btnLogP2)
+  changeOrderDiv(p1Board)
 })
 btnLogP1.addEventListener("click",()=>hideLog(logListP1))
 btnLogP2.addEventListener("click",()=>hideLog(logListP2))

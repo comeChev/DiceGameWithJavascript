@@ -10,13 +10,9 @@
 .border-player{
   border: 3px solid red;
 }
-.background-NP{
-
-}
 .full-height{
   height: 100%;
 }
-
 .hide-log{
   display: none;
 }
@@ -25,26 +21,30 @@
   align-items: center;
   justify-content: center;
 }
+.background-dice{
+  background-image: url(../ressources/images/dice-1-fill.svg);
+  background-position: center;
+  background-repeat: none;
+  background-size: contain;
+  content:"";
+  height: 70px;
+  width: 70px;
+  transition: all .3s ease-out;
+}
+.background-dice:hover{
+  cursor: pointer;
+  right: 10px;
+  top:10px;
+}
 
-/*
-#p1, #p2{
-  background-color: aquamarine;
-}
-#currentScoreP1, #currentScoreP2{
-  background-color: rgb(131, 206, 152);
-}
-#logP1, #logP2{
-  background-color: cadetblue;
-}
-*/
+
+
+
+
 #logArea{
   background-color: transparent;
   border: 0px transparent;
 }
-
-
-
-
 
 
 
