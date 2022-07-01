@@ -13,10 +13,12 @@ let lgMediaQuery = window.matchMedia("(min-width: 992px)")
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES
 // ---------------------------------------------------------
-let logListP1 = document.querySelector('#logP1')
-let logListP2 = document.querySelector('#logP2')
-let btnLogP1 = document.querySelector('#btnHideLogP1')
-let btnLogP2 = document.querySelector('#btnHideLogP2')
+const logListP1 = document.querySelector('#logP1')
+const logListP2 = document.querySelector('#logP2')
+const btnLogP1 = document.querySelector('#btnHideLogP1')
+const btnLogP2 = document.querySelector('#btnHideLogP2')
+const logAreaP1 = document.querySelector("#logAreaP1")
+const logAreaP2 = document.querySelector("#logAreaP2")
 
 // ---------------------------------------------------------
 // DECLARATION DES FONCTIONS
@@ -34,6 +36,8 @@ let hideLog=(name)=>{
   } else {
     name.classList.remove('d-md-flex')
   }}
+let populateArea=(name)=>{name.value += "lorem ipsum blabla \n"}
+let resetArea=(name)=>{name.value=""}
 
 // ---------------------------------------------------------
 // EXECUTION DU CODE

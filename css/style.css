@@ -10,6 +10,9 @@
 .border-player{
   border: 3px solid red;
 }
+.background-NP{
+
+}
 .full-height{
   height: 100%;
 }
@@ -23,7 +26,7 @@
   justify-content: center;
 }
 
-
+/*
 #p1, #p2{
   background-color: aquamarine;
 }
@@ -33,6 +36,17 @@
 #logP1, #logP2{
   background-color: cadetblue;
 }
+*/
+#logArea{
+  background-color: transparent;
+  border: 0px transparent;
+}
+
+
+
+
+
+
 
 
 body{
