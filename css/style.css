@@ -1,11 +1,8 @@
 .mainFontFam{
   font-family: 'Lato', sans-serif;
 }
-.bg-player1{
-  background-color:antiquewhite;
-}
-.bg-player2{
-  background-color:bisque;
+.bg-player{
+  background-color:#ffe4c4;
 }
 .border-player{
   border: 3px solid red;
@@ -45,8 +42,9 @@
   background-color: transparent;
   border: 0px transparent;
 }
-
-
+.cursorP{
+  cursor: pointer;
+}
 
 
 body{

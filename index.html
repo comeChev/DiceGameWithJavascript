@@ -14,11 +14,63 @@
     <link rel="stylesheet" href="./css/style.css">
     <!-- FONT REFERENCE -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-    <!-- JAVASCRIPT -->
-    <script type="module" src="./js/script.js"></script>
+   
   </head>
 
   <body class="container-fluid bg-dark text-light mainFontFam">
+
+     <!-- DEBUT DE LA MODALE NEWGAME -->
+     <div class="modal fade text-dark" id="modalNewGame" tabindex="-1" aria-labelledby="modalNewGame" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Commencer une nouvelle partie</h3>
+            <form class="d-none mb-3 d-md-block form-group">
+              <label for="selectNumberPlayers" class="form-label">Sélectionner le nombre de joueurs</label>
+              <select name="selectNumberPlayers" class="form-control" id="selectNumberPlayers">
+                <option value="2">2 joueurs</option>
+                <option value="3">3 joueurs</option>
+                <option value="4">4 joueurs</option>
+              </select>
+            </form>
+          </div>
+          <div class="modal-body">
+            <form id="modalNewGameContent">
+              <div class="row" id="addPlayerRow">
+                <div class="col-12 col-md-6" id="formP1">
+                  <div class="mb-3">
+                    <label for="inputNameP1" class="form-label">Nom du premier joueur</label>
+                    <input type="text" class="form-control" id="inputNameP1" placeholder="Joueur 1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputColorP1" class="form-label">Couleur du joueur 1</label>
+                    <input type="color" class="form-control" id="inputColorP1" value="#ffe4c4">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6" id="formP2">
+                  <div class="mb-3">
+                    <label for="inputNameP2" class="form-label">Nom du deuxième joueur</label>
+                    <input type="text" class="form-control" id="inputNameP2" placeholder="Joueur 2">
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputColorP2" class="form-label">Couleur du joueur 2</label>
+                    <input type="color" class="form-control" id="inputColorP2" value="#faebd7">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id='btnCloseGame' >Annuler</button>
+            <button class="btn btn-success" type="submit">Lancer la partie</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- FIN DE LA MODALE -->
+
+
+
     <header>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
@@ -29,10 +81,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Nouvelle partie</a>
+                <a class="nav-link active cursorP" aria-current="page" id="btnNewGame">Nouvelle partie</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Comment jouer ?</a>
+                <a class="nav-link cursorP" id="btnRules">Comment jouer ?</a>
               </li>
             </ul>
           </div>
@@ -42,10 +94,10 @@
     </header>
 
     <main class="text-dark">
-      <div class="row container-fluid full-height position-relative">
-        <div class="col-12 col-lg-6 bg-player1" id="playerCadre1">
+      <div class="row container-fluid full-height position-relative" id="globalBoard">
+        <div class="col-12 col-lg-6 bg-player" id="playerCadre1">
           <div class="row text-center full-height align-items-stretch">
-            <div class="col-12 col-lg-12 p-0" id="p1Board">
+            <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-2" id="p1Board">
               <div class="h-75 center-all" id="p1">
                 <div>
                   <h2>Player 1</h2>
@@ -72,9 +124,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-6 bg-player2" id="playerCadre2">
+        <div class="col-12 col-lg-6 bg-player" id="playerCadre2">
           <div class="row text-center full-height align-items-stretch">
-            <div class="col-12 col-lg-12 p-0">
+            <div class="col-12 col-lg-12 p-0 pb-2 pb-lg-2">
               <div class="h-75 center-all" id="p2">
                 <div>
                   <h2>Player 2</h2>
@@ -100,7 +152,36 @@
             </div>
           </div>
         </div>
-        <div class="position-absolute translate-middle top-50 start-50 background-dice" id="diceButton"></div>
+        <div class="col-12 col-lg-6 bg-player" id="playerCadre1">
+          <div class="row text-center full-height align-items-stretch">
+            <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-2" id="p1Board">
+              <div class="h-75 center-all" id="p1">
+                <div>
+                  <h2>Player 1</h2>
+                  <h3>47/100</h3>
+                  <button class="btn btn-primary" id="btnHideLogP1">Cacher log</button>
+                </div>
+              </div>
+              <div class="h-25 center-all p-4" id="currentScoreP1">
+                <div class="col-8">
+                  <p class="m-0">Score en cours</p>
+                  <h4>12</h4>
+                </div>
+                <div class="col-4">
+                  <button class="btn btn-success">Garder le score</button>
+                </div>
+              </div>
+              
+            </div>
+            <div class="d-none col-lg-12 center-all p-1" id="logP1">
+              <div class="form-group row container-fluid p-0 m-0 h-100 align-content-start">
+                <label class='input-label' style="height:20%" for="logAreaP1">Historique de la partie</label>
+                <textarea title ="Historique" class="pt-2 form-control" style="height:80%" disabled id="logAreaP1"></textarea>
+             </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn position-absolute translate-middle top-50 start-50" id="diceButton" style="background-color:aqua; height:50px; width:50px"></button>
       </div>
     </main>
 
@@ -110,6 +191,8 @@
     
     <!-- BOOTSTRAP JAVASCRIPT -->
     <script type="module" src="./js/bootstrap.min.js"></script>
+     <!-- JAVASCRIPT -->
+     <script type="module" src="./js/script.js"></script>
   </body>
 
   </html>
