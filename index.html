@@ -57,12 +57,18 @@
                     <input type="color" class="form-control" id="inputColorP2" value="#faebd7">
                   </div>
                 </div>
+                <div class="col-12" id="styleDice">
+                  <div class="mb-3">
+                    <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
+                    <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
+                  </div>
+                </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" id='btnCloseGame' >Annuler</button>
-            <button class="btn btn-success" type="submit">Lancer la partie</button>
+            <button class="btn btn-success" type="submit" id="btnCreateGame">Lancer la partie</button>
           </div>
         </div>
       </div>
@@ -97,18 +103,18 @@
       <div class="row container-fluid full-height position-relative" id="globalBoard">
         <div class="col-12 col-lg-6 bg-player" id="playerCadre1">
           <div class="row text-center full-height align-items-stretch">
-            <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-2" id="p1Board">
+            <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-0" id="p1Board">
               <div class="h-75 center-all" id="p1">
                 <div>
-                  <h2>Player 1</h2>
-                  <h3>47/100</h3>
+                  <h2 id="nameP1">Player 1</h2>
+                  <h3 id="scoreP1">47/100</h3>
                   <button class="btn btn-primary" id="btnHideLogP1">Cacher log</button>
                 </div>
               </div>
               <div class="h-25 center-all p-4" id="currentScoreP1">
                 <div class="col-8">
                   <p class="m-0">Score en cours</p>
-                  <h4>12</h4>
+                  <h4 id="tempScoreP1">12</h4>
                 </div>
                 <div class="col-4">
                   <button class="btn btn-success">Garder le score</button>
@@ -129,15 +135,15 @@
             <div class="col-12 col-lg-12 p-0 pb-2 pb-lg-2">
               <div class="h-75 center-all" id="p2">
                 <div>
-                  <h2>Player 2</h2>
-                  <h3>79/100</h3>
+                  <h2 id="nameP2">Player 2</h2>
+                  <h3 id="scoreP2">79/100</h3>
                   <button class="btn btn-primary" id="btnHideLogP2">Cacher log</button>
                 </div>
               </div>
               <div class="h-25 center-all p-4" id="currentScoreP2">
                 <div class="col-8">
                   <p class="m-0">Score en cours</p>
-                  <h4>0</h4>
+                  <h4 id="tempScoreP2">0</h4>
                 </div>
                 <div class="col-4">
                   <button class="btn btn-success">Garder le score</button>
@@ -148,35 +154,6 @@
               <div class="form-group row container-fluid p-0 m-0 h-100 align-content-start">
                 <label class='input-label' style="height:20%" for="logArea">Historique de la partie</label>
                 <textarea title ="Historique" class="pt-2 form-control" style="height:80%" disabled id="logAreaP2"></textarea>
-             </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6 bg-player" id="playerCadre1">
-          <div class="row text-center full-height align-items-stretch">
-            <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-2" id="p1Board">
-              <div class="h-75 center-all" id="p1">
-                <div>
-                  <h2>Player 1</h2>
-                  <h3>47/100</h3>
-                  <button class="btn btn-primary" id="btnHideLogP1">Cacher log</button>
-                </div>
-              </div>
-              <div class="h-25 center-all p-4" id="currentScoreP1">
-                <div class="col-8">
-                  <p class="m-0">Score en cours</p>
-                  <h4>12</h4>
-                </div>
-                <div class="col-4">
-                  <button class="btn btn-success">Garder le score</button>
-                </div>
-              </div>
-              
-            </div>
-            <div class="d-none col-lg-12 center-all p-1" id="logP1">
-              <div class="form-group row container-fluid p-0 m-0 h-100 align-content-start">
-                <label class='input-label' style="height:20%" for="logAreaP1">Historique de la partie</label>
-                <textarea title ="Historique" class="pt-2 form-control" style="height:80%" disabled id="logAreaP1"></textarea>
              </div>
             </div>
           </div>
