@@ -12,24 +12,27 @@ export default class gameSettings{
   constructor(){
     this.numberPlayers = 2
     this.diceStyle = "#94E8E3"
+    this.numberClickedDice = 0
+    this.victoryPoints = 100
+    this.innerModal = document.querySelector('#addPlayerRow')
+    this.globalBoard = document.querySelector('#globalBoard')
   }
-  
+ 
   // pour ajouter le dé clickable sur le board
-  diceButtonAdd = (globalBoard)=>{
-  let buttonToAdd = document.createElement('button')
-  buttonToAdd.setAttribute('id', 'diceButton')
-  buttonToAdd.setAttribute('style', `background-color:${document.querySelector('#inputStyleDice').value}; height:50px; width:50px`)
-  buttonToAdd.classList.add('btn', 'position-absolute', 'translate-middle', 'top-50', 'start-50')
-  buttonToAdd.addEventListener('click',()=>randomNumber(6))
-  globalBoard.append(buttonToAdd)
-  let styleDice =  document.querySelector('#inputStyleDice')
-  if (styleDice.value != "" || styleDice.value != null){
-    this.diceStyle = styleDice.value
-  }
+  diceButtonAdd = ()=>{
+    let btn = document.createElement('button')
+    let styleDice =  document.querySelector('#inputStyleDice')
+    if (styleDice.value != "" || styleDice.value != null){
+      this.diceStyle = styleDice.value
+    }
+    btn.setAttribute('id', 'diceButton')
+    btn.setAttribute('style', `background-color:${this.diceStyle}; height:50px; width:50px`)
+    btn.classList.add('btn', 'position-absolute', 'translate-middle', 'top-50', 'start-50')
+    this.globalBoard.append(btn)
   }
   // pour changer la couleur de fond de chaque joueur dans la modale
-  changeColorBackgroundForm=(numberPlayers)=>{
-    for (let i=1; i<numberPlayers+1; i++){
+  changeColorBackgroundForm=(nb)=>{
+    for (let i=1; i<nb+1; i++){
       let color = document.querySelector(`#inputColorP${i}`)
       color.addEventListener("change",()=>{
         let form = document.querySelector(`#formP${i}`)
@@ -75,19 +78,23 @@ export default class gameSettings{
     })
   }
   // pour ajouter tous les cadres de joueur en fonction du nombre de joueurs sélectionnés
-  addCadrePlayers=(globalBoard,lgMediaQuery)=>{
-    globalBoard.innerHTML =""
+  addCadrePlayers=()=>{
+    let lgMediaQuery = window.matchMedia("(min-width : 991px)")
+    this.globalBoard.innerHTML = ""
     for(let i=1; i<(this.numberPlayers+1);i++){
-      cadrePlayer(i,globalBoard,lgMediaQuery)
+      cadrePlayer(i,this.globalBoard,lgMediaQuery)
+      if (lgMediaQuery.matches) {
+        showLogBtn(window[`btnLogP${i}`])}
+        
     }
     this.diceButtonAdd(globalBoard)
     changeOrderDiv(document.querySelector("#p1Board"))
+    //reorganizeOrderDiv(document.querySelector("#p1Board"))
   }
   // pour créer un nouveau joueur
-  createPlayer=(i)=>{
-    let x= i-1    
-    let form= document.querySelector('#addPlayerRow')
-    let inputs = form.children[x].querySelectorAll('.form-control')
+  createPlayer=(i)=>{   
+    let form= this.innerModal
+    let inputs = form.children[i-1].querySelectorAll('.form-control')
     let namePlayer = ()=>{
       if (inputs[0].value == "" || inputs[0].value == null){
         return `Joueur ${i}`
@@ -97,6 +104,36 @@ export default class gameSettings{
     changeBackgroundBoard(i,color)
     return new gamePlayer(namePlayer(),color,i)
   }
+  //pour initiliser la modale à la fin
+  initModal=()=>{
+    this.innerModal.innerHTML=""
+    for (let i=0; i<this.numberPlayers;i++){
+      this.setPlayerModal(i+1)
+    }
+    addColorDiceSelector(this.innerModal)
+
+  }
+  // pour insérer un joueur dans la modale
+  setPlayerModal =(i)=>{
+    let div = document.createElement('div')
+    div.classList.add('col-12', 'col-md-6')
+    div.setAttribute("id",`formP${i}`)
+    div.innerHTML = `
+      <div class="mb-3">
+        <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
+        <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
+      </div>
+      <div class="mb-3">
+        <label for="inputColorP${i}" class="form-label">Couleur du joueur ${i}</label>
+        <input type="color" class="form-control" id="inputColorP${i}" value="#ffe4c4">
+      </div>`
+    this.innerModal.appendChild(div)
+    let color = document.querySelector(`#inputColorP${i}`)
+    color.addEventListener("change",()=>{
+      let form = document.querySelector(`#formP${i}`)
+      form.style.backgroundColor=`${color.value}`
+    })
+  }
 }
 
 
@@ -104,10 +141,6 @@ export default class gameSettings{
 // DECLARATION DES VARIABLES LOCALES
 // ---------------------------------------------------------
 
-// pour générer un nombre aléatoire suivant le nombre de faces du dé
-let randomNumber=(diceFaces)=>{
-  console.log(Math.floor(Math.random() * (diceFaces - 1 + 1) + 1))
-} 
 // pour définir un nouveau cadre de joueur
 let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
     let divToAppend = document.createElement('div')
@@ -129,7 +162,7 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
               <h4 id="tempScoreP${number}">12</h4>
             </div>
             <div class="col-4">
-              <button class="btn btn-success" id="btnKeepScoreP${number}">Garder le score</button>
+              <button class="btn btn-success" id="keepScoreP${number}">Garder le score</button>
             </div>
           </div>
         </div>
@@ -159,12 +192,28 @@ let changeOrderDiv=(divElement)=>{
       divElement.children[0].remove()
       divElement.appendChild(divToMove)
     } else{
+      console.log('test')
       let divToMove = divElement.children[1]
       divElement.children[1].remove()
       divElement.prependChild(divToMove)
     }
     changeNumberPlayerCadre()
   })
+}
+let reorganizeOrderDiv=(divElement)=>{
+  if(window.matchMedia("(min-width : 991px)")){
+    if(divElement.firstChild.id = "p1"){
+      console.log('test')
+      let divToMove = divElement.children[0]
+      divElement.children[0].remove()
+      divElement.appendChild(divToMove)
+    } else{
+      let divToMove = divElement.children[1]
+      divElement.children[1].remove()
+      divElement.prependChild(divToMove)
+    }
+    changeNumberPlayerCadre()
+  }
 }
 // pour cacher les boutons d'historique
 let showLogBtn =(name)=>{
@@ -185,7 +234,6 @@ let hideLog=(name)=>{
 // pour changer 
 let changeNumberPlayerCadre=()=>{
   let numberCadre = globalBoard.querySelectorAll('.bg-player').length
-  console.log('nombre de cadre '+ numberCadre)
   if (!window.matchMedia("(min-width : 991px)").matches){
     if(numberCadre>2){
       //on doit garder les 2 premières div (soit [0] et [1])
@@ -197,4 +245,21 @@ let changeNumberPlayerCadre=()=>{
       }
     }
   }
+}
+// pour ajouter le select de couleur du bouton
+let addColorDiceSelector=(modal)=>{
+  let div = document.createElement('div')
+  div.setAttribute('id', 'styleDice')
+  div.classList.add('col-12')
+  div.innerHTML =`
+    <div class="mb-3">
+      <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
+      <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
+    </div>`
+  modal.appendChild(div)
+}
+
+//pour avoir un chiffre aléatoire 
+let randomDice=(dice)=>{
+  return (Math.floor(Math.random() * dice) + 1)
 }
