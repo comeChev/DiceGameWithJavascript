@@ -34,10 +34,11 @@ export default class gamePlayer{
     this.score=0
     this.numberTurn=0
   }
-  showValue=(i)=>{
-    document.querySelector(`#scoreP${i+1}`).innerHTML = `${this.score}/100`
+  showValue=(i,vp)=>{
+    document.querySelector(`#scoreP${i+1}`).innerHTML = `${this.score}/${vp}`
     document.querySelector(`#tempScoreP${i+1}`).innerHTML = this.tempScore
     document.querySelector(`#logAreaP${i+1}`).value = this.arrayToString()
+    document.querySelector(`#logAreaP${i+1}`).scrollTop =  document.querySelector(`#logAreaP${i+1}`).scrollHeight
   }
 
 }

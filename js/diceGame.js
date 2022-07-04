@@ -77,14 +77,14 @@ export default class diceGame{
     if(result == 1){
       player.tempScore = 0
       player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}. ${player.namePlayer} passe son tour.`)
-      player.showValue(this.currentPlayer)
+      player.showValue(this.currentPlayer, this.settings.victoryPoints)
       this.setPlayer()
       return
     } else{
       player.tempScore += result
       player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}.`)
       player.logGame.push(`Le score en cours de ${player.namePlayer} est de ${player.tempScore}.`)
-      player.showValue(this.currentPlayer)
+      player.showValue(this.currentPlayer, this.settings.victoryPoints)
     }
   }
   setFocus=(currentPlayer,players)=>{
@@ -103,11 +103,19 @@ export default class diceGame{
       player.score += player.tempScore
       player.tempScore=0
       player.logGame.push(`${player.namePlayer} a choisi de garder son score de ${player.tempScore}.`)
-      player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${100-player.score} points.`)
-      player.showValue(this.currentPlayer)
+      player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${this.settings.victoryPoints-player.score} points.`)
+      player.showValue(this.currentPlayer,this.settings.victoryPoints)
+      if(player.score >= this.settings.victoryPoints){
+        
+        return
+      }
       this.setPlayer()
       return
     }
+  }
+
+  endGame=()=>{
+    
   }
   rollDice=()=>{
     let btnDice = document.querySelector('#diceButton')
@@ -131,4 +139,5 @@ let randomPlayer=(numberPlayers)=>{
 let randomDice=(dice)=>{
   return Math.floor(Math.random() * (dice) + 1)
 }
+
 
