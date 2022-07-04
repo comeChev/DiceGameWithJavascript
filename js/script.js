@@ -23,9 +23,7 @@ const underLgMediaQuery = window.matchMedia("(max-width : 991px)")
 const globalBoard = document.querySelector('#globalBoard')
 const modalNewGame = new bootstrap.Modal(document.querySelector("#modalNewGame"));
 const btnNewGame = document.querySelector('#btnNewGame')
-const btnDice = document.querySelector('#diceButton')
 const btnCloseGame = document.querySelector('#btnCloseGame')
-
 
 const logListP1 = document.querySelector('#logP1')
 const logListP2 = document.querySelector('#logP2')

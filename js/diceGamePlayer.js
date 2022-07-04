@@ -18,6 +18,11 @@ export default class gamePlayer{
   getColorPlayer =()=>{return this.colorPlayer}
   getScore = ()=>{return this.score}
   getTempScore = ()=>{return this.tempScore}
+  arrayToString=()=>{
+    let arrayString = this.logGame.join(`\r\n`)
+    console.log(arrayString)
+    return arrayString.toString()
+  }
   setTurn = (value,i)=>{
     this.turn = value
     if(this.turn){
@@ -32,6 +37,7 @@ export default class gamePlayer{
   showValue=(i)=>{
     document.querySelector(`#scoreP${i+1}`).innerHTML = `${this.score}/100`
     document.querySelector(`#tempScoreP${i+1}`).innerHTML = this.tempScore
+    document.querySelector(`#logAreaP${i+1}`).value = this.arrayToString()
   }
 
 }

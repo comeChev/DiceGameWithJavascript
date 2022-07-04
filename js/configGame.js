@@ -18,18 +18,6 @@ export default class gameSettings{
     this.globalBoard = document.querySelector('#globalBoard')
   }
  
-  // pour ajouter le dé clickable sur le board
-  diceButtonAdd = ()=>{
-    let btn = document.createElement('button')
-    let styleDice =  document.querySelector('#inputStyleDice')
-    if (styleDice.value != "" || styleDice.value != null){
-      this.diceStyle = styleDice.value
-    }
-    btn.setAttribute('id', 'diceButton')
-    btn.setAttribute('style', `background-color:${this.diceStyle}; height:50px; width:50px`)
-    btn.classList.add('btn', 'position-absolute', 'translate-middle', 'top-50', 'start-50')
-    this.globalBoard.append(btn)
-  }
   // pour changer la couleur de fond de chaque joueur dans la modale
   changeColorBackgroundForm=(nb)=>{
     for (let i=1; i<nb+1; i++){
@@ -39,6 +27,27 @@ export default class gameSettings{
         form.style.backgroundColor=`${color.value}`
       })
     }
+  }
+  // pour insérer un joueur dans la modale
+  setPlayerModal =(i)=>{
+    let div = document.createElement('div')
+    div.classList.add('col-12', 'col-md-6')
+    div.setAttribute("id",`formP${i}`)
+    div.innerHTML = `
+    <div class="mb-3">
+    <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
+    <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
+    </div>
+    <div class="mb-3">
+    <label for="inputColorP${i}" class="form-label">Couleur du joueur ${i}</label>
+    <input type="color" class="form-control" id="inputColorP${i}" value="#ffe4c4">
+    </div>`
+    this.innerModal.appendChild(div)
+    let color = document.querySelector(`#inputColorP${i}`)
+    color.addEventListener("change",()=>{
+      let form = document.querySelector(`#formP${i}`)
+      form.style.backgroundColor=`${color.value}`
+    })
   }
   // pour changer le nombre de joueurs dans la modale
   changeNumberPlayers=(selectNumberPlayers)=>{
@@ -52,12 +61,12 @@ export default class gameSettings{
         divPlayer.setAttribute("id",`formP${i}`)
         divPlayer.innerHTML = `
         <div class="mb-3">
-          <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
-          <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
+        <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
+        <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
         </div>
         <div class="mb-3">
-          <label for="inputColorP${i}" class="form-label">Couleur du joueur ${i}</label>
-          <input type="color" class="form-control" id="inputColorP${i}" value="#ffe4c4">
+        <label for="inputColorP${i}" class="form-label">Couleur du joueur ${i}</label>
+        <input type="color" class="form-control" id="inputColorP${i}" value="#ffe4c4">
         </div>`
         addPlayerRow.appendChild(divPlayer)
         let color = document.querySelector(`#inputColorP${i}`)
@@ -71,8 +80,8 @@ export default class gameSettings{
       formDiceStyle.setAttribute('id', 'styleDice')
       formDiceStyle.innerHTML =
       `<div class="mb-3">
-        <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
-        <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
+      <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
+      <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
       </div>`
       addPlayerRow.appendChild(formDiceStyle)
     })
@@ -83,17 +92,31 @@ export default class gameSettings{
     this.globalBoard.innerHTML = ""
     for(let i=1; i<(this.numberPlayers+1);i++){
       cadrePlayer(i,this.globalBoard,lgMediaQuery)
-      if (lgMediaQuery.matches) {
-        showLogBtn(window[`btnLogP${i}`])}
-        
+      if (!lgMediaQuery.matches) {
+        showLogBtn(window[`btnLogP${i}`])
+      }  
     }
-    this.diceButtonAdd(globalBoard)
+    this.diceButtonAdd()
     changeOrderDiv(document.querySelector("#p1Board"))
-    //reorganizeOrderDiv(document.querySelector("#p1Board"))
+    reorganizeOrderDiv(document.querySelector("#p1Board"))
+  }
+  // pour ajouter le dé sur le board
+  diceButtonAdd = ()=>{
+      let btn = document.createElement('div')
+      btn.classList.add('diceCadre','position-absolute', 'translate-middle')
+      btn.innerHTML=`
+        <div>
+          <button class="btn" id="diceButton" style="background-color:aqua; height:80px; width:80px"></button>
+        </div>
+        <div>
+          <button class ='btn btn-success m-2'id="btnDiceRoll">Roll dice</button>
+        </div>
+      `
+      this.globalBoard.append(btn)
   }
   // pour créer un nouveau joueur
   createPlayer=(i)=>{   
-    let form= this.innerModal
+      let form= this.innerModal
     let inputs = form.children[i-1].querySelectorAll('.form-control')
     let namePlayer = ()=>{
       if (inputs[0].value == "" || inputs[0].value == null){
@@ -113,27 +136,7 @@ export default class gameSettings{
     addColorDiceSelector(this.innerModal)
 
   }
-  // pour insérer un joueur dans la modale
-  setPlayerModal =(i)=>{
-    let div = document.createElement('div')
-    div.classList.add('col-12', 'col-md-6')
-    div.setAttribute("id",`formP${i}`)
-    div.innerHTML = `
-      <div class="mb-3">
-        <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
-        <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
-      </div>
-      <div class="mb-3">
-        <label for="inputColorP${i}" class="form-label">Couleur du joueur ${i}</label>
-        <input type="color" class="form-control" id="inputColorP${i}" value="#ffe4c4">
-      </div>`
-    this.innerModal.appendChild(div)
-    let color = document.querySelector(`#inputColorP${i}`)
-    color.addEventListener("change",()=>{
-      let form = document.querySelector(`#formP${i}`)
-      form.style.backgroundColor=`${color.value}`
-    })
-  }
+
 }
 
 
@@ -175,7 +178,9 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
       </div>`
     globalBoard.append(divToAppend)
     let btnLog = document.querySelector(`#btnHideLogP${number}`)
-    btnLog.addEventListener("click",()=> hideLog(document.querySelector(`#logP${number}`)))
+    btnLog.addEventListener("click",()=> {
+      hideLog(document.querySelector(`#logP${number}`))
+    })
     window[`btnLogP${number}`] = document.querySelector(`#btnHideLogP${number}`)
     lgMediaQuery.addEventListener('change', ()=>{showLogBtn(window[`btnLogP${number}`])})
 } 
@@ -201,7 +206,7 @@ let changeOrderDiv=(divElement)=>{
   })
 }
 let reorganizeOrderDiv=(divElement)=>{
-  if(window.matchMedia("(min-width : 991px)")){
+  if(!window.matchMedia("(min-width : 991px)").matches){
     if(divElement.firstChild.id = "p1"){
       console.log('test')
       let divToMove = divElement.children[0]

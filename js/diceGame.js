@@ -31,12 +31,9 @@ export default class diceGame{
     this.setFocus(this.currentPlayer,this.numberPlayers())
     console.log(this.currentPlayer)
     document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).addEventListener('click',()=>{this.keepScore()})
-    document.querySelector('#diceButton').addEventListener('click',()=>{
-      let diceResult = randomDice(6);
-      setTimeout(() => {
-        document.querySelector('#diceButton').innerHTML = diceResult
-        this.playerPlays(diceResult)
-      }, 2000);
+    document.querySelector('#diceButton').addEventListener('click',()=>{this.rollDice()})
+    document.querySelector('#btnDiceRoll').addEventListener('click', ()=>{
+      this.rollDice()
     })
     })
   }
@@ -79,11 +76,14 @@ export default class diceGame{
     let player = this.getPlayer(this.currentPlayer)
     if(result == 1){
       player.tempScore = 0
+      player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}. ${player.namePlayer} passe son tour.`)
       player.showValue(this.currentPlayer)
       this.setPlayer()
       return
     } else{
       player.tempScore += result
+      player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}.`)
+      player.logGame.push(`Le score en cours de ${player.namePlayer} est de ${player.tempScore}.`)
       player.showValue(this.currentPlayer)
     }
   }
@@ -102,10 +102,23 @@ export default class diceGame{
     if(player.tempScore>0){
       player.score += player.tempScore
       player.tempScore=0
+      player.logGame.push(`${player.namePlayer} a choisi de garder son score de ${player.tempScore}.`)
+      player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${100-player.score} points.`)
       player.showValue(this.currentPlayer)
       this.setPlayer()
       return
     }
+  }
+  rollDice=()=>{
+    let btnDice = document.querySelector('#diceButton')
+    btnDice.classList.toggle('roll-dice1')
+    setTimeout(() => {
+      let diceResult = randomDice(6);
+      document.querySelector('#diceButton').innerHTML = diceResult
+      this.playerPlays(diceResult)
+      btnDice.classList.toggle('roll-dice1')
+      console.log(btnDice.classList)
+    }, 1000);
   }
 }
 // ---------------------------------------------------------

@@ -34,9 +34,44 @@
   top:10px;
 }
 
+.diceCadre{
+  top:50%;
+  left:50%;
+  width: 150px;
+  height : 150px;
+  text-align: center;
+}
+.dice{
+  background-color: aqua;
+  height: 90px;
+  width: 90px;
+}
 
+.roll-dice1{
+  transition: transform 1s ease-out;
+  transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+}
 
-
+.roll-dice2{
+  transition: transform 1s ease-out;
+  transform: rotateX(450deg) rotateY(720deg) rotateZ(360deg);
+}
+.roll-dice3{
+  transition: transform 1s ease-out;
+  transform: rotateX(360deg) rotateY(630deg) rotateZ(360deg);
+}
+.roll-dice4{
+  transition: transform 1s ease-out;
+  transform: rotateX(360deg) rotateY(810deg) rotateZ(360deg);
+}
+.roll-dice5{
+  transition: transform 1s ease-out;
+  transform: rotateX(270deg) rotateY(720deg) rotateZ(360deg);
+}
+.roll-dice6{
+  transition: transform 1s ease-out;
+  transform: rotateX(360deg) rotateY(900deg) rotateZ(360deg);
+}
 
 #logArea{
   background-color: transparent;
