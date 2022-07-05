@@ -1,3 +1,7 @@
+// ---------------------------------------------------------
+// DECLARATION DE CLASSE
+// ---------------------------------------------------------
+
  export default class dataPlayer{
   constructor(){
     this.nbTurn = 0

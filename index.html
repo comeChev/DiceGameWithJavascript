@@ -42,9 +42,15 @@
                     <label for="inputNameP1" class="form-label">Nom du premier joueur</label>
                     <input type="text" class="form-control" id="inputNameP1" placeholder="Joueur 1">
                   </div>
-                  <div class="mb-3">
-                    <label for="inputColorP1" class="form-label">Couleur du joueur 1</label>
-                    <input type="color" class="form-control" id="inputColorP1" value="#ffe4c4">
+                  <div class="row">
+                    <div class="col-6 mb-3">
+                      <label for="inputColorP1" class="form-label">Couleur du joueur 1</label>
+                      <input type="color" class="form-control" id="inputColorP1" value="#ffe4c4">
+                    </div>
+                    <div class="col-6 mb-3">
+                      <label for="inputTextColorP1" class="form-label">Couleur du texte</label>
+                      <input type="color" class="form-control" id="inputTextColorP1" value="#ffe4c4">
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-6" id="formP2">
@@ -88,16 +94,18 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Joueur</th>
+                <th scope="col">Score</th>
                 <th scope="col">Nombre de tours</th>
                 <th scope="col">Nombre de jets de dés</th>
                 <th scope="col">Nombre de 1 obtenus</th>
                 <th scope="col">Moyenne de points / tour</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tBody">
               <tr>
                 <th scope="row">1</th>
                 <td>Joueur 1</td>
+                <td>score 10</td>
                 <td>10</td>
                 <td>56</td>
                 <td>12</td>
@@ -106,6 +114,7 @@
               <tr>
                 <th scope="row">2</th>
                 <td>Joueur 2</td>
+                <td>score 10</td>
                 <td>10</td>
                 <td>56</td>
                 <td>12</td>
@@ -155,7 +164,7 @@
           <div class="row text-center full-height align-items-stretch">
             <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-0" id="p1Board">
               <div class="h-75 center-all pt-2" id="p1">
-                <div>
+                <div id="p1Name">
                   <h2 id="nameP1">Player 1</h2>
                   <h3 id="scoreP1">47/100</h3>
                   <button class="btn btn-primary" id="btnHideLogP1">Cacher log</button>
@@ -214,7 +223,7 @@
         </div>
 
         <div class="victoryCadre moveVC position-absolute translate-middle">
-          <p>VICTOIRE DE JOUEUR1 !!</p>
+          <p>🎉 🎉 VICTOIRE DE JOUEUR1 🎉 🎉</p>
         </div>
       </div>
     </main>
@@ -225,9 +234,9 @@
     
     <!-- BOOTSTRAP JAVASCRIPT -->
     <script type="module" src="./js/bootstrap.min.js"></script>
-     <!-- JAVASCRIPT -->
-     <script type="module" src="./js/script.js"></script>
-     <!-- 
+    <!-- JAVASCRIPT -->
+    <script type="module" src="./js/script.js"></script>
+    <!-- 
      -->
   </body>
 

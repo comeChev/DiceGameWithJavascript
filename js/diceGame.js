@@ -2,7 +2,7 @@
 // IMPORTATIONS
 // ---------------------------------------------------------
 import gameSettings from "./configGame.js";
-import endGame from "./endGame.js";
+import endGame, { statistics } from "./endGame.js";
 
 const btnCloseGame = document.querySelector('#btnCloseGame')
 const btnCreateGame = document.querySelector('#btnCreateGame')
@@ -22,6 +22,7 @@ export default class diceGame{
 
   getPlayer=(i)=>{return this.players[i]}
   numberPlayers =()=>{return this.players.length}
+  data=()=>{return this.players}
   
   // pour démarrer la partie
   startNewGame=()=>{
@@ -29,7 +30,6 @@ export default class diceGame{
     this.gameID += 1
     this.settings = new gameSettings()
     this.settings.initModal()
-    this.settings.changeColorBackgroundForm(this.numberPlayers())
     this.settings.changeNumberPlayers(selectNumberPlayers)
     btnCreateGame.addEventListener('click',()=>{
       this.validateSettings()
@@ -42,6 +42,9 @@ export default class diceGame{
     })
     })
     btnCloseGame.addEventListener('click', ()=>modalNewGame.hide())
+    document.querySelector('#btnResult').addEventListener('click', ()=>{
+      this.showStatistics()
+    })
   }
   // pour valider les réglagles (nombres de joueurs, couleurs etc...)
   validateSettings=()=>{
@@ -56,6 +59,7 @@ export default class diceGame{
     btnCreateGame.removeEventListener('click',()=>{
       this.validateSettings(modalNewGame)
     })
+    console.log(this.players[1].dataPlayer)
   }
   // pour initier les scores en début de partie et les afficher
   initScore=()=>{
@@ -125,8 +129,8 @@ export default class diceGame{
       player.showValue(this.currentPlayer,this.settings.victoryPoints)
       if(player.score >= this.settings.victoryPoints){
         let majPlayer = player.namePlayer.toUpperCase()
-        console.log(majPlayer)
-        endGame(modalNewGame,this.numberPlayers(),majPlayer)
+        let players = this.players
+        endGame(modalNewGame,this.numberPlayers(),majPlayer,player,this.players)
         return
       }
       this.setPlayer()
@@ -145,6 +149,11 @@ export default class diceGame{
       console.log(btnDice.classList)
     }, 1000);
   }
+  //pour voir les statistiques en cours
+  showStatistics=()=>{
+    statistics(this.numberPlayers(),this.players)
+  }
+  
 }
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES LOCALES
@@ -158,5 +167,4 @@ let randomPlayer=(numberPlayers)=>{
 let randomDice=(dice)=>{
   return Math.floor(Math.random() * (dice) + 1)
 }
-
 

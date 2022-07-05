@@ -8,7 +8,6 @@ large 992px */
 // ---------------------------------------------------------
 
 import diceGame from "./diceGame.js"
-import endGame from "./endGame.js"
 
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES MEDIAQUERIES
@@ -56,7 +55,5 @@ btnNewGame.addEventListener('click',()=>{
   newGame.startNewGame(modalNewGame)
 })
 
-//btnCloseGame.addEventListener('click',()=>modalNewGame.hide())
-btnStat.addEventListener('click', ()=>endGame())
 
 
