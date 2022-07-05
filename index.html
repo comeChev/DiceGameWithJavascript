@@ -113,6 +113,37 @@
     </div>
     <!-- FIN DE LA MODALE -->
 
+    <!-- DEBUT DE LA MODALE HOWTOPLAY-->
+    <div class="modal fade text-dark" id="modalHowToPlay" tabindex="-1" aria-labelledby="modalHowToPlay" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-block">
+            <div class="d-flex">
+              <h3 class="modal-title" id="exampleModalLabel">DICE ROLLING GAME</h3>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <h5 class="modal-title">Comment jouer ?</h5>
+          </div>
+          <div class="modal-body">
+            <h5 class="text-center">Le premier joueur qui arrive au score demandé <small>(100 points par défault)</small> gagne la partie.</h5>
+            <div class ="mt-4">
+              <p>1. A chaque tour, vous avez la possibilité de lancer un dé à 6 faces.</p>
+              <p>2. Si vous obtenez un 1 lors de votre lancé, vous passez votre tour <u>sans marquer de points</u>.</p>
+              <p>3. Pour tout autre résultat, vous engranger vos points dans une réserve.</p>
+              <p>4. A tout moment, vous pouvez décider d'ajouter le score de votre réserve à votre score total. Si vous faites cela, vous gagner les points et avancez dans le jeu, mais vous passez la main au(x) joueur(s) suivant(s).</p>
+              <p class="text-center">❗❗ Vous perdrez votre réserve si vous faites un 1 ❗❗</p>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <h5>🎲 A vous de jouer ! Amusez vous bien ! 🎲 </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN DE LA MODALE -->
+
     <header>
       <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
@@ -126,10 +157,10 @@
                 <a class="nav-link active cursorP" aria-current="page" id="btnNewGame">Nouvelle partie</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link cursorP" id="btnRules">Comment jouer ?</a>
+                <a class="nav-link cursorP" id="btnResult">Voir les résultats</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link cursorP" id="btnResult">Voir les résultats</a>
+                <a class="nav-link cursorP" id="btnRules">Comment jouer ?</a>
               </li>
             </ul>
           </div>

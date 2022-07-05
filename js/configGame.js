@@ -34,7 +34,7 @@ export default class gameSettings{
       </div>
       <div class="col-6 mb-3">
         <label for="inputTextColorP${i}" class="form-label">Couleur du texte</label>
-        <input type="color" class="form-control" id="inputTextColorP${i}" value="#fffff">
+        <input type="color" class="form-control" id="inputTextColorP${i}" value="#000000">
       </div>
     </div>`
     this.innerModal.appendChild(div)
@@ -105,6 +105,25 @@ export default class gameSettings{
         </div>
       </div>`
       addPlayerRow.appendChild(formDiceStyle)
+      let div = document.createElement('div')
+      div.classList.add('col-12')
+      div.setAttribute('id', 'chooseVP')
+      div.innerHTML =`
+      <div class="mb-3 col-12">
+        <label for="inputSelectVP" class="form-label">Nombre de points de victoire</label>
+      <div class="mb-3 col-12">  
+        <select type="color" class="form-control" id="inputSelectVP">
+          <option value = "1">---Nombre de points à obtenir---</option>
+          <option value = "50">50 points</option>
+          <option value = "100">100 points</option>
+          <option value = "150">150 points</option>
+          <option value = "200">200 points</option>
+          <option value = "250">Impossible</option>
+          <option value = "500">Infernal</option>
+          <option value = "1000">Cauchemardesque</option>
+        </select>
+      </div>`
+      addPlayerRow.appendChild(div)
     })
   }
   // pour ajouter tous les cadres de joueur sur le board en fonction du nombre de joueurs sélectionnés
@@ -134,10 +153,10 @@ export default class gameSettings{
     btn.classList.add('diceCadre','position-absolute', 'translate-middle')
     btn.innerHTML=`
       <div>
-        <button class="btn" id="diceButton" style="background-color:${colorBtn}; height:80px; width:80px"></button>
+        <button class="btn btnStyle" id="diceButton" style="background-color:${colorBtn}; height:80px; width:80px"></button>
       </div>
       <div>
-        <button class ='btn btn-success m-2'id="btnDiceRoll">Roll dice</button>
+        <button class ='btn btn-success m-2 btnDiceRoll'id="btnDiceRoll">Roll dice</button>
       </div>
       `
     this.globalBoard.append(btn)
@@ -153,8 +172,7 @@ export default class gameSettings{
     }
     let color = inputs[1].value
     let colorText= inputs[2].value
-    changeBackgroundBoard(i,color)
-    changeColorText(i,colorText)
+    changeBackgroundBoard(i,color, colorText)
     return new gamePlayer(namePlayer(),color,colorText,i)
   }
   //pour initiliser la modale
@@ -192,17 +210,23 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
         <div class="col-12 col-lg-12 p-0 pt-2 pt-lg-2" id="p${number}Board">
           <div class="h-75 center-all" id="p${number}">
             <div id="p${number}Name">
-              <h2 id="nameP${number}">Player ${number}</h2>
-              <h3 id="scoreP${number}">47/100</h3>
-              <button class="btn btn-primary" id="btnHideLogP${number}">Montrer historique</button>
+              <div id="p${number}Text">
+                <h2 id="nameP${number}">Player ${number}</h2>
+                <h3 id="scoreP${number}">47/100</h3>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-primary" id="btnHideLogP${number}">Montrer historique</button>
+              </div>
             </div>
           </div>
-          <div class="h-25 center-all p-4" id="currentScoreP${number}">
-            <div class="col-8">
-              <p class="m-0">Score en cours</p>
-              <h4 id="tempScoreP${number}">12</h4>
+          <div class="h-25 center-all" id="currentScoreP${number}">
+            <div class="col-6">
+              <div id="p${number}Score" class="inputScore">
+                <p class="m-0">Score en cours</p>
+                <h4 id="tempScoreP${number}">12</h4>
+              </div>
             </div>
-            <div class="col-4">
+            <div>
               <button class="btn btn-success d-none" id="keepScoreP${number}">Garder le score</button>
             </div>
           </div>
@@ -226,16 +250,19 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
     })
 } 
 // pour modifier le fond du board
-let changeBackgroundBoard=(i, color)=>{
-  let cadre = document.querySelector(`#playerCadre${i}`)
-  cadre.setAttribute('style', `background-color:${color}`)
+let changeBackgroundBoard=(i, color, colorText)=>{
+  let cadre = document.querySelector(`#p${i}Text`)
+  cadre.setAttribute('style', `color:${colorText}; background-color:${color}; background-image: linear-gradient(45deg, #ffffff 0%, ${color}100%`)
+  cadre.classList.add('inputText')
+  let cadreScore = document.querySelector(`#p${i}Score`)
+  cadreScore.setAttribute('style', `color:${colorText}; background-color:${color}; background-image: linear-gradient(45deg, #ffffff 0%, ${color}100%`)
+  let btnKeep = document.querySelector(`#keepScoreP${i}`)
+  btnKeep.setAttribute('style', `color:${colorText}; background-color:${color}; background-image: linear-gradient(45deg, #ffffff 0%, ${color}100%`)
+  btnKeep.classList.add('btnKeep')
+  let btnLog = document.querySelector(`#btnHideLogP${i}`)
+  btnLog.setAttribute('style', `color:${colorText}; background-color:${color}; background-image: linear-gradient(45deg, #ffffff 0%, ${color}100%`)
+  btnLog.classList.add('btnHideLog')
 }
-// pour modifier la couleur du text
-let changeColorText=(i,colorText)=>{
-  let cadre = document.querySelector(`#playerCadre${i}`)
-  cadre.setAttribute('style', `color:${colorText}`)
-}
-
 // pour modifier la disposition du board du player1 en mode mobile
 let changeOrderDiv=(divElement)=>{
   window.matchMedia("(min-width : 991px)").addEventListener("change",()=>{

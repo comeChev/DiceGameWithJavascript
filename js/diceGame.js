@@ -170,3 +170,4 @@ let randomDice=(dice)=>{
   return Math.floor(Math.random() * (dice) + 1)
 }
 
+

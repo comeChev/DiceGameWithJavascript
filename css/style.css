@@ -1,14 +1,16 @@
-.inputName{
-  background-color: aqua;
-}
+
 .mainFontFam{
   font-family: 'Lato', sans-serif;
 }
 .bg-player{
-  background-color:#ffe4c4;
+  background-color:#5e8564a6;
+  border-radius: 20px;
 }
 .border-player{
-  border: 3px solid red;
+  border: 7px solid #fdf041dd;
+  border-radius: 20px;
+  background-color: rgb(114, 139, 89);
+  
 }
 .full-height{
   height: 100%;
@@ -67,13 +69,47 @@
   opacity: 1;
   transition: opacity 3s ease-out;
 }
+.inputText{
+  padding: 20px 100px 20px 100px;
+  border-radius: 20px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+}
+.inputScore{
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  width: 80%;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  margin: auto auto;
+}
+.btnKeep{
+  border-radius: 20px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  margin: auto auto;
+}
+.btnHideLog{
+  border-radius: 10px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  margin: auto auto;
+}
+.btnDiceRoll{
+  border-radius: 10px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  margin: auto auto;
+}
 
+.btnStyle{
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+}
 /* ANIMATION ROLL DICE */
 
 .roll-dice1{
   transition: transform 1s ease-out;
   transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
 }
+
 
 .roll-dice2{
   transition: transform 1s ease-out;
