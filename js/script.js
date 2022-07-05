@@ -43,9 +43,9 @@ const selectNumberPlayers = document.querySelector('#selectNumberPlayers')
 // EXECUTION DU CODE
 // ---------------------------------------------------------
 
-window.onload =()=>{
-  globalBoard.innerHTML=""
-}
+
+globalBoard.innerHTML=""
+
 let game1 = new diceGame()
 game1.startNewGame(modalNewGame)
 
