@@ -115,9 +115,16 @@ export default class gameSettings{
       cadrePlayer(i,this.globalBoard,lgMediaQuery)
       if (!lgMediaQuery.matches) {
         showLogBtn(window[`btnLogP${i}`])
+        
       }  
     }
     this.diceButtonAdd()
+    if(!lgMediaQuery.matches){
+      document.querySelector('#btnDiceRoll').classList.toggle('d-none')
+    }
+    lgMediaQuery.addEventListener('change', ()=>{
+      document.querySelector('#btnDiceRoll').classList.toggle('d-none')
+    })
     changeOrderDiv(document.querySelector("#p1Board"))
     reorganizeOrderDiv(document.querySelector("#p1Board"))
   }
@@ -203,7 +210,10 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
       hideLog(document.querySelector(`#logP${number}`), btnLog)
     })
     window[`btnLogP${number}`] = document.querySelector(`#btnHideLogP${number}`,)
-    lgMediaQuery.addEventListener('change', ()=>{showLogBtn(window[`btnLogP${number}`])})
+    lgMediaQuery.addEventListener('change', ()=>{
+      showLogBtn(window[`btnLogP${number}`])
+      
+    })
 } 
 // pour modifier le fond du board
 let changeBackgroundBoard=(i, color)=>{
@@ -257,11 +267,7 @@ let reorganizeOrderDiv=(divElement)=>{
 }
 // pour cacher les boutons d'historique
 let showLogBtn =(name)=>{
-  if(!name.classList.contains('d-none')){
-    name.classList.add('d-none')
-  } else {
-    name.classList.remove('d-none')
-  }
+  name.classList.toggle('d-none')
 }
 // pour afficher le cadre de texte de l'historique
 let hideLog=(name,nameBtn)=>{  

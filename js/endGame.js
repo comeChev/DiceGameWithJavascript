@@ -12,7 +12,9 @@ export default function endGame(modalGame,players,playerName,nbPlayer,arrayPlaye
   // on désactive les boutons rollDice
   let btnDice =document.querySelector('#btnDiceRoll')
   let dice = document.querySelector('#diceButton')
-  btnDice.classList.toggle('d-none')
+  if(window.matchMedia("(min-width : 991px)")){
+    btnDice.classList.add('d-none')
+  }
   dice.classList.toggle('d-none')
   // on enlève le cadre du focus
   let cadre = document.querySelector(`#playerCadre${nbPlayer.idPlayer}`)
@@ -57,6 +59,7 @@ let victoryMessage=(playerName)=>{
   div.innerHTML = `<p> 🎉 🎉 VICTOIRE DE ${playerName} 🎉 🎉 </p>`
   globalBoard.appendChild(div)
 }
+// transition pour faire apparaître le message
 let victoryMessageAppear=()=>{
   let victoryMessage = document.querySelector('.victoryCadre')
   victoryMessage.classList.toggle('moveVC')
@@ -77,7 +80,6 @@ let createTablePlayer=(arrayPlayer, tBody)=>{
     <td>${data.nbTurn}</td>
     <td>${data.nbRollDice}</td>
     <td>${data.nb1}</td>
-    <td>${pointsPerTurn}</td>
   `
   tBody.appendChild(tr)
 }
