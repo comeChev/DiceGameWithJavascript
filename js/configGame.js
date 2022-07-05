@@ -115,7 +115,6 @@ export default class gameSettings{
       cadrePlayer(i,this.globalBoard,lgMediaQuery)
       if (!lgMediaQuery.matches) {
         showLogBtn(window[`btnLogP${i}`])
-        
       }  
     }
     this.diceButtonAdd()
@@ -165,6 +164,17 @@ export default class gameSettings{
       this.setPlayerModal(i+1)
     }
     addColorDiceSelector(this.innerModal)
+    addVictoryPointsSelector(this.innerModal)
+  }
+  // pour modifier les points de victoire
+  changeVictoryPoints=()=>{
+    let selectVP = document.querySelector('#inputSelectVP')
+    if(selectVP.value != 1){
+      console.log(selectVP.value)
+      return selectVP.value
+    }else{
+      return 100
+    }
   }
 }
 
@@ -225,6 +235,7 @@ let changeColorText=(i,colorText)=>{
   let cadre = document.querySelector(`#playerCadre${i}`)
   cadre.setAttribute('style', `color:${colorText}`)
 }
+
 // pour modifier la disposition du board du player1 en mode mobile
 let changeOrderDiv=(divElement)=>{
   window.matchMedia("(min-width : 991px)").addEventListener("change",()=>{
@@ -298,12 +309,34 @@ let changeNumberPlayerCadre=()=>{
 let addColorDiceSelector=(modal)=>{
   let div = document.createElement('div')
   div.setAttribute('id', 'styleDice')
-  div.classList.add('col-12')
+  div.classList.add('col-6')
   div.innerHTML =`
-    <div class="mb-3 col-4">
+    <div class="mb-3 col-12">
       <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
-    <div class="mb-3 col-3">  
+    <div class="mb-3 col-4">  
       <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
+    </div>`
+    modal.appendChild(div)
+}
+// pour ajouter le select de choix de points de victoire
+let addVictoryPointsSelector=(modal)=>{
+  let div = document.createElement('div')
+  div.setAttribute('id', 'chooseVP')
+  div.classList.add('col-6')
+  div.innerHTML =`
+    <div class="mb-3 col-12">
+      <label for="inputSelectVP" class="form-label">Nombre de points de victoire</label>
+    <div class="mb-3 col-12">  
+      <select type="color" class="form-control" id="inputSelectVP">
+        <option value = "1">---Nombre de points à obtenir---</option>
+        <option value = "50">50 points</option>
+        <option value = "100">100 points</option>
+        <option value = "150">150 points</option>
+        <option value = "200">200 points</option>
+        <option value = "250">Impossible</option>
+        <option value = "500">Infernal</option>
+        <option value = "1000">Cauchemardesque</option>
+      </select>
     </div>`
     modal.appendChild(div)
 }

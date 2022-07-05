@@ -49,6 +49,8 @@ export default class diceGame{
   // pour valider les réglagles (nombres de joueurs, couleurs etc...)
   validateSettings=()=>{
     let nb = this.settings.numberPlayers
+    this.settings.victoryPoints = this.settings.changeVictoryPoints()
+    console.log(this.settings.changeVictoryPoints())
     this.settings.addCadrePlayers()
     this.players=[]
     for(let i=1; i<(nb+1) ; i++){
