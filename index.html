@@ -21,7 +21,7 @@
 
     <!-- DEBUT DE LA MODALE NEWGAME -->
     <div class="modal fade text-dark" id="modalNewGame" tabindex="-1" aria-labelledby="modalNewGame" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">Commencer une nouvelle partie</h3>
@@ -75,7 +75,52 @@
     </div>
     <!-- FIN DE LA MODALE -->
 
-  
+  <!-- DEBUT DE LA MODALE ENDGAME-->
+  <div class="modal fade text-dark" id="modalEndGame" tabindex="-1" aria-labelledby="modalEndGame" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">FIN DE LA PARTIE</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table" id="modalEndGameContent">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Joueur</th>
+                <th scope="col">Nombre de tours</th>
+                <th scope="col">Nombre de jets de dés</th>
+                <th scope="col">Nombre de 1 obtenus</th>
+                <th scope="col">Moyenne de points / tour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Joueur 1</td>
+                <td>10</td>
+                <td>56</td>
+                <td>12</td>
+                <td>17</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Joueur 2</td>
+                <td>10</td>
+                <td>56</td>
+                <td>12</td>
+                <td>17</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit" id="btnCreateNewGame">Commencer une nouvelle partie</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN DE LA MODALE -->
 
 
 
@@ -93,6 +138,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link cursorP" id="btnRules">Comment jouer ?</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link cursorP" id="btnResult">Voir les résultats</a>
               </li>
             </ul>
           </div>
@@ -163,6 +211,10 @@
         <div class="diceCadre position-absolute translate-middle">
           <button class="btn dice" id="diceButton"></button>
           <button class ='btnDice btn btn-success mt-2' id="btnDiceRoll">Roll dice</button>
+        </div>
+
+        <div class="victoryCadre moveVC position-absolute translate-middle">
+          <p>VICTOIRE DE JOUEUR1 !!</p>
         </div>
       </div>
     </main>

@@ -13,7 +13,7 @@ export default class gameSettings{
     this.numberPlayers = 2
     this.diceStyle = "#94E8E3"
     this.numberClickedDice = 0
-    this.victoryPoints = 100
+    this.victoryPoints = 7
     this.innerModal = document.querySelector('#addPlayerRow')
     this.globalBoard = document.querySelector('#globalBoard')
   }
@@ -116,7 +116,7 @@ export default class gameSettings{
   }
   // pour créer un nouveau joueur
   createPlayer=(i)=>{   
-      let form= this.innerModal
+    let form= this.innerModal
     let inputs = form.children[i-1].querySelectorAll('.form-control')
     let namePlayer = ()=>{
       if (inputs[0].value == "" || inputs[0].value == null){
@@ -134,11 +134,8 @@ export default class gameSettings{
       this.setPlayerModal(i+1)
     }
     addColorDiceSelector(this.innerModal)
-
   }
-
 }
-
 
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES LOCALES
@@ -165,7 +162,7 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
               <h4 id="tempScoreP${number}">12</h4>
             </div>
             <div class="col-4">
-              <button class="btn btn-success" id="keepScoreP${number}">Garder le score</button>
+              <button class="btn btn-success d-none" id="keepScoreP${number}">Garder le score</button>
             </div>
           </div>
         </div>
@@ -205,6 +202,7 @@ let changeOrderDiv=(divElement)=>{
     changeNumberPlayerCadre()
   })
 }
+// pour réorganiser les div du player 1 en fonction de la taille de l'écran
 let reorganizeOrderDiv=(divElement)=>{
   if(!window.matchMedia("(min-width : 991px)").matches){
     if(divElement.firstChild.id = "p1"){
@@ -236,7 +234,7 @@ let hideLog=(name)=>{
     name.classList.remove('d-md-flex')
   }
 }
-// pour changer 
+// pour changer le nombres de cadres à afficher en cas de passage à écran mobile
 let changeNumberPlayerCadre=()=>{
   let numberCadre = globalBoard.querySelectorAll('.bg-player').length
   if (!window.matchMedia("(min-width : 991px)").matches){
@@ -261,10 +259,5 @@ let addColorDiceSelector=(modal)=>{
       <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
       <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
     </div>`
-  modal.appendChild(div)
-}
-
-//pour avoir un chiffre aléatoire 
-let randomDice=(dice)=>{
-  return (Math.floor(Math.random() * dice) + 1)
+    modal.appendChild(div)
 }

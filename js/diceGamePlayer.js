@@ -1,3 +1,5 @@
+import dataPlayer from "./dataGame.js";
+
 // ---------------------------------------------------------
 // DECLARATION DE CLASSE
 // ---------------------------------------------------------
@@ -12,6 +14,7 @@ export default class gamePlayer{
     this.tempScore = 0
     this.turn = true
     this.numberTurn = 0
+    this.dataPlayer = new dataPlayer()
   }
 
   getNamePlayer = ()=>{return this.namePlayer}

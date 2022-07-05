@@ -8,6 +8,7 @@ large 992px */
 // ---------------------------------------------------------
 
 import diceGame from "./diceGame.js"
+import endGame from "./endGame.js"
 
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES MEDIAQUERIES
@@ -21,9 +22,8 @@ const underLgMediaQuery = window.matchMedia("(max-width : 991px)")
 // DECLARATION DES VARIABLES
 // ---------------------------------------------------------
 const globalBoard = document.querySelector('#globalBoard')
-const modalNewGame = new bootstrap.Modal(document.querySelector("#modalNewGame"));
 const btnNewGame = document.querySelector('#btnNewGame')
-const btnCloseGame = document.querySelector('#btnCloseGame')
+const btnStat = document.querySelector('#btnResult')
 
 const logListP1 = document.querySelector('#logP1')
 const logListP2 = document.querySelector('#logP2')
@@ -56,6 +56,7 @@ btnNewGame.addEventListener('click',()=>{
   newGame.startNewGame(modalNewGame)
 })
 
-btnCloseGame.addEventListener('click',()=>modalNewGame.hide())
+//btnCloseGame.addEventListener('click',()=>modalNewGame.hide())
+btnStat.addEventListener('click', ()=>endGame())
 
 

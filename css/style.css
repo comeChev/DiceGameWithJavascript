@@ -33,7 +33,6 @@
   right: 10px;
   top:10px;
 }
-
 .diceCadre{
   top:50%;
   left:50%;
@@ -46,6 +45,28 @@
   height: 90px;
   width: 90px;
 }
+.victoryCadre{
+  top:70vh;
+  left:50%;
+  opacity: 0;
+  width: 80vw;
+  text-align: center;
+  background-color: rgba(0, 128, 128, 0.579);
+  border-radius: 20px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.483);
+}
+.victoryCadre p{
+  font-size: 4vw;
+  padding:10px;
+  margin :0;
+  color : white;
+}
+.victoryCadre.moveVC{
+  opacity: 1;
+  transition: opacity 3s ease-out;
+}
+
+/* ANIMATION ROLL DICE */
 
 .roll-dice1{
   transition: transform 1s ease-out;
@@ -73,14 +94,18 @@
   transform: rotateX(360deg) rotateY(900deg) rotateZ(360deg);
 }
 
+/* STYLE FOR ID */
+
 #logArea{
   background-color: transparent;
   border: 0px transparent;
 }
+
 .cursorP{
   cursor: pointer;
 }
 
+/* STYLE FOR GLOBAL */ 
 
 body{
   min-height: 100vh;
