@@ -240,7 +240,6 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
   })
   window[`btnLogP${number}`] = document.querySelector(`#btnHideLogP${number}`,)
   lgMediaQuery.addEventListener('change', ()=>{
-    console.log(window[`btnLogP${number}`])
     showLogBtn(window[`btnLogP${number}`])
   })
 } 
@@ -271,7 +270,6 @@ let changeOrderDiv=(divElement)=>{
       pName.children[1].remove()
       pName.prepend(divtoMoveInner)
     } else{
-      console.log('test')
       let divToMove = divElement.children[1]
       divElement.children[1].remove()
       divElement.prependChild(divToMove)
@@ -283,7 +281,6 @@ let changeOrderDiv=(divElement)=>{
 let reorganizeOrderDiv=(divElement)=>{
   if(!lgMediaQuery.matches){
     if(divElement.firstChild.id = "p1"){
-      console.log('test')
       let divToMove = divElement.children[0]
       divElement.children[0].remove()
       divElement.appendChild(divToMove)
