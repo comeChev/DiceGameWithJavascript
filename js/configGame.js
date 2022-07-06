@@ -40,6 +40,9 @@ export default class gameSettings{
     this.innerModal.appendChild(div)
     let namePlayer = document.querySelector(`#inputNameP${i}`)
     namePlayer.value = `Joueur ${i}`
+    namePlayer.addEventListener('click',(e)=>{
+      namePlayer.setSelectionRange(0, namePlayer.value.length)
+    })
     let colorP = document.querySelector(`#inputColorP${i}`)
     colorP.addEventListener("change",()=>{
       let form = document.querySelector(`#formP${i}`)
@@ -79,8 +82,11 @@ export default class gameSettings{
           </div>
         </div>`
         addPlayerRow.appendChild(divPlayer)
-        let namePLayer = document.querySelector(`#inputNameP${i}`)
-        namePLayer.value = `Joueur ${i}`
+        let namePlayer = document.querySelector(`#inputNameP${i}`)
+        namePlayer.value = `Joueur ${i}`
+        namePlayer.addEventListener('click',(e)=>{
+          namePlayer.setSelectionRange(0, namePlayer.value.length)
+        })
         let colorP = document.querySelector(`#inputColorP${i}`)
         colorP.addEventListener("change",()=>{
           let form = document.querySelector(`#formP${i}`)
@@ -153,7 +159,8 @@ export default class gameSettings{
     btn.classList.add('diceCadre','position-absolute', 'translate-middle')
     btn.innerHTML=`
       <div>
-        <button class="btn btnStyle" id="diceButton" style="background-color:${colorBtn}; height:80px; width:80px"></button>
+        <button class="btnStyle dice1" id="diceButton" style="background-color:${colorBtn}">
+        </button>
       </div>
       <div>
         <button class ='btn btn-success m-2 btnDiceRoll'id="btnDiceRoll">Roll dice</button>
@@ -177,12 +184,13 @@ export default class gameSettings{
   }
   //pour initiliser la modale
   initModal=()=>{
-    this.innerModal.innerHTML=""
+    this.innerModal.innerHTML="" 
     for (let i=0; i<this.numberPlayers;i++){
       this.setPlayerModal(i+1)
     }
     addColorDiceSelector(this.innerModal)
     addVictoryPointsSelector(this.innerModal)
+    document.querySelector('#selectNumberPlayers').value =2
   }
   // pour modifier les points de victoire
   changeVictoryPoints=()=>{
@@ -341,7 +349,7 @@ let addColorDiceSelector=(modal)=>{
     <div class="mb-3 col-12">
       <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
     <div class="mb-3 col-4">  
-      <input type="color" class="form-control" id="inputStyleDice" value="#94E8E3">
+      <input type="color" class="form-control" id="inputStyleDice" value="#ff0000">
     </div>`
     modal.appendChild(div)
 }

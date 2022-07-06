@@ -10,7 +10,6 @@
   border: 7px solid #fdf041dd;
   border-radius: 20px;
   background-color: rgb(114, 139, 89);
-  
 }
 .full-height{
   height: 100%;
@@ -43,6 +42,8 @@
   left:50%;
   width: 150px;
   text-align: center;
+  
+  
 }
 .dice{
   background-color: aqua;
@@ -72,64 +73,67 @@
 .inputText{
   padding: 20px 100px 20px 100px;
   border-radius: 20px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 .inputScore{
   padding: 5px 10px 5px 10px;
   border-radius: 20px;
   width: 80%;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   margin: auto auto;
 }
 .btnKeep{
   border-radius: 20px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   width: 80%;
   margin: auto auto;
 }
 .btnHideLog{
   border-radius: 10px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   width: 80%;
   margin: auto auto;
 }
 .btnDiceRoll{
   border-radius: 10px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   width: 80%;
   margin: auto auto;
 }
 
 .btnStyle{
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  background-position: center;
+  background-size: contain;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
 }
+.dice1{
+  background-image: url(../ressources/images/diceTransparent1.png);
+}
+.dice2{
+  background-image: url(../ressources/images/diceTransparent2.png);
+}
+.dice3{
+  background-image: url(../ressources/images/diceTransparent3.png);
+}
+.dice4{
+  background-image: url(../ressources/images/diceTransparent4.png);
+}
+.dice5{
+  background-image: url(../ressources/images/diceTransparent5.png);
+}
+.dice6{
+  background-image: url(../ressources/images/diceTransparent6.png);
+}
+
 /* ANIMATION ROLL DICE */
 
 .roll-dice1{
-  transition: transform 1s ease-out;
-  transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
-}
-
-
-.roll-dice2{
-  transition: transform 1s ease-out;
-  transform: rotateX(450deg) rotateY(720deg) rotateZ(360deg);
-}
-.roll-dice3{
-  transition: transform 1s ease-out;
-  transform: rotateX(360deg) rotateY(630deg) rotateZ(360deg);
-}
-.roll-dice4{
-  transition: transform 1s ease-out;
-  transform: rotateX(360deg) rotateY(810deg) rotateZ(360deg);
-}
-.roll-dice5{
-  transition: transform 1s ease-out;
-  transform: rotateX(270deg) rotateY(720deg) rotateZ(360deg);
-}
-.roll-dice6{
-  transition: transform 1s ease-out;
-  transform: rotateX(360deg) rotateY(900deg) rotateZ(360deg);
+  transition: transform 2000ms ease-out;
+  transform: rotateZ(1080deg);
 }
 
 /* STYLE FOR ID */

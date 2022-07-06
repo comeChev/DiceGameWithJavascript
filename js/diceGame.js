@@ -50,24 +50,23 @@ export default class diceGame{
   validateSettings=()=>{
     let nb = this.settings.numberPlayers
     this.settings.victoryPoints = this.settings.changeVictoryPoints()
-    console.log(this.settings.changeVictoryPoints())
     this.settings.addCadrePlayers()
     this.players=[]
     for(let i=1; i<(nb+1) ; i++){
       this.players.push(this.settings.createPlayer(i))
     }
-    modalNewGame.hide()
     this.initScore()
+    modalNewGame.hide()
     btnCreateGame.removeEventListener('click',()=>{
       this.validateSettings(modalNewGame)
     })
-    console.log(this.players[1].dataPlayer)
   }
   // pour initier les scores en début de partie et les afficher
   initScore=()=>{
     for(let i=0; i<this.numberPlayers();i++){
       let player = this.getPlayer(i)
       player.showValue(i,this.settings.victoryPoints)
+      document.querySelector(`#nameP${i+1}`).innerHTML = player.namePlayer
     }
   }
   //pour changer de joueur
@@ -143,13 +142,28 @@ export default class diceGame{
   rollDice=()=>{
     let btnDice = document.querySelector('#diceButton')
     btnDice.classList.toggle('roll-dice1')
+    let dice = document.querySelector('#diceButton')
+    let timerRollingDice = setInterval(()=>{
+      for(let i=1; i<7; i++){
+        if (dice.classList.contains(`dice${i}`)){
+          dice.classList.remove(`dice${i}`)
+        }
+      }
+      let resultFace = randomDice(6)
+      dice.classList.add(`dice${resultFace}`)
+    },200)
     setTimeout(() => {
-      let diceResult = randomDice(6);
-      document.querySelector('#diceButton').innerHTML = diceResult
+      clearInterval(timerRollingDice)
+      let diceResult = randomDice(6); 
+      for(let i=1; i<7; i++){
+        if (dice.classList.contains(`dice${i}`)){
+          dice.classList.remove(`dice${i}`)
+        }
+      }
+      dice.classList.add(`dice${diceResult}`)
       this.playerPlays(diceResult)
       btnDice.classList.toggle('roll-dice1')
-      console.log(btnDice.classList)
-    }, 1000);
+    }, 2000);
   }
   //pour voir les statistiques en cours
   showStatistics=()=>{
