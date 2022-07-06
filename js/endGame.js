@@ -2,8 +2,7 @@
 // DECLARATION DES VARIABLES
 // ---------------------------------------------------------
 
-const btnDice =document.querySelector('#btnDiceRoll')
-const dice = document.querySelector('#diceButton')
+let dice = document.querySelector('#diceButton')
 const lgMediaQuery = window.matchMedia("(min-width : 991px)")
 const modalEndGame = new bootstrap.Modal(document.querySelector('#modalEndGame'))
 const btnCreateNewGame = document.querySelector('#btnCreateNewGame')
@@ -22,8 +21,7 @@ export default function endGame(modalGame,players,playerName,nbPlayer,arrayPlaye
     currentScoreCadre.setAttribute('style','opacity:0')
   }
   // on désactive les boutons rollDice
-  if(lgMediaQuery){btnDice.classList.add('d-none')}
-  dice.classList.toggle('d-none')
+  document.querySelector('#diceButton').classList.toggle('d-none')
   // on enlève le cadre du focus
   let cadre = document.querySelector(`#playerCadre${nbPlayer.idPlayer}`)
   cadre.classList.toggle('border-player')

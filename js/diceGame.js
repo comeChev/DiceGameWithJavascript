@@ -46,9 +46,6 @@ export default class diceGame{
       document.querySelector('#diceButton').addEventListener('click',()=>{
         this.rollDice()
       })
-      document.querySelector('#btnDiceRoll').addEventListener('click', ()=>{
-        this.rollDice()
-      })
       document.querySelector('#btnResult').addEventListener('click', ()=>{
         this.showStatistics()
         setTimeout(() => {

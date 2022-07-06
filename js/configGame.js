@@ -90,12 +90,6 @@ export default class gameSettings{
       }  
     }
     this.diceButtonAdd()
-    if(!lgMediaQuery.matches){
-      document.querySelector('#btnDiceRoll').classList.toggle('d-none')
-    }
-    lgMediaQuery.addEventListener('change', ()=>{
-      document.querySelector('#btnDiceRoll').classList.toggle('d-none')
-    })
     changeOrderDiv(document.querySelector("#p1Board"))
     reorganizeOrderDiv(document.querySelector("#p1Board"))
   }
@@ -114,9 +108,6 @@ export default class gameSettings{
       <div>
         <button class="btnStyle dice${styleDice}1" id="diceButton" style="background-color:${colorBtn}">
         </button>
-      </div>
-      <div>
-        <button class ='btn btn-success m-2 btnDiceRoll'id="btnDiceRoll">Roll dice</button>
       </div>
       `
     this.globalBoard.append(btn)

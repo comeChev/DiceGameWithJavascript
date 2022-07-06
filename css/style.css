@@ -35,9 +35,9 @@ main{
   opacity: 0;
   width: 80vw;
   text-align: center;
-  background-color: rgba(0, 128, 128, 0.579);
+  background-color: rgba(0, 128, 128, 0.8);
   border-radius: 20px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.483);
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
 }
 .victoryCadre p{
   font-size: 4vw;
