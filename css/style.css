@@ -1,56 +1,34 @@
-
+/* GLOBAL */
+body{
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+header{
+  min-height: 50px;
+}
+footer{
+  min-height: 30px;
+}
+main{
+  min-height: 80vh;
+}
 .mainFontFam{
   font-family: 'Lato', sans-serif;
 }
-.bg-player{
-  background-color:#5e8564a6;
-  border-radius: 20px;
-}
-.border-player{
-  border: 7px solid #fdf041dd;
-  border-radius: 20px;
-  background-color: rgb(114, 139, 89);
-}
 .full-height{
   height: 100%;
-}
-.hide-log{
-  display: none;
 }
 .center-all{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.mobileMode{
-  transform: rotate(180deg);
-}
-.background-dice{
-  background-image: url(../ressources/images/dice-1-fill.svg);
-  background-position: center;
-  background-repeat: none;
-  background-size: contain;
-  content:"";
-  height: 70px;
-  width: 70px;
-  transition: all .3s ease-out;
-}
-.background-dice:hover{
+.cursorP{
   cursor: pointer;
-  right:10px;
-  top:10px;
 }
-.diceCadre{
-  top:50%;
-  left:50%;
-  width: 150px;
-  text-align: center; 
-}
-.dice{
-  background-color: aqua;
-  height: 90px;
-  width: 90px;
-}
+
+/* CADRE DE VICTOIRE */
 .victoryCadre{
   top:70vh;
   left:50%;
@@ -69,8 +47,10 @@
 }
 .victoryCadre.moveVC{
   opacity: 1;
-  transition: opacity 3s ease-out;
+  transition: opacity 2000ms ease-out;
 }
+
+/* PERSONNALISATION DES CADRES */
 .inputText{
   padding: 20px 100px 20px 100px;
   border-radius: 20px;
@@ -94,6 +74,40 @@
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   width: 80%;
   margin: auto auto;
+}
+.mobileMode{
+  transform: rotate(180deg);
+}
+#logArea{
+  background-color: transparent;
+  border: 0px transparent;
+}
+.hide-log{
+  display: none;
+}
+
+/* FOCUS DU JOUEUR EN COURS */
+.bg-player{
+  background-color:#5e8564a6;
+  border-radius: 20px;
+}
+.border-player{
+  border: 7px solid #fdf041dd;
+  border-radius: 20px;
+  background-color: rgb(114, 139, 89);
+}
+
+/* PERSONNALISATION DU DE */
+.diceCadre{
+  top:50%;
+  left:50%;
+  width: 150px;
+  text-align: center; 
+}
+.dice{
+  background-color: aqua;
+  height: 90px;
+  width: 90px;
 }
 .btnDiceRoll{
   border-radius: 10px;
@@ -129,37 +143,9 @@
   background-image: url(../ressources/images/diceTransparent6.png);
 }
 
-/* ANIMATION ROLL DICE */
-
+/* ANIMATION DU LANCE DE DE */
 .roll-dice1{
   transition: transform 2000ms ease-out;
   transform: rotateZ(1080deg);
 }
 
-/* STYLE FOR ID */
-
-#logArea{
-  background-color: transparent;
-  border: 0px transparent;
-}
-
-.cursorP{
-  cursor: pointer;
-}
-
-/* STYLE FOR GLOBAL */ 
-
-body{
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-header{
-  min-height: 50px;
-}
-footer{
-  min-height: 30px;
-}
-main{
-  min-height: 80vh;
-}

@@ -4,9 +4,14 @@
 import gameSettings from "./configGame.js";
 import endGame, { statistics } from "./endGame.js";
 
+// ---------------------------------------------------------
+// DECLARATION DES VARIABLES
+// ---------------------------------------------------------
 const btnCloseGame = document.querySelector('#btnCloseGame')
 const btnCreateGame = document.querySelector('#btnCreateGame')
 const modalNewGame = new bootstrap.Modal(document.querySelector("#modalNewGame"));
+const lgMediaQuery = window.matchMedia("(min-width : 991px)")
+const mdMediaQuery = window.matchMedia("(min-width : 768px)")
 
 // ---------------------------------------------------------
 // DECLARATION DE CLASSE
@@ -35,19 +40,24 @@ export default class diceGame{
       this.validateSettings()
       this.currentPlayer = randomPlayer(this.numberPlayers())
       this.setFocus(this.currentPlayer,this.numberPlayers())
+      // on initialise les eventListeners
       document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).addEventListener('click',()=>{this.keepScore()})
-      document.querySelector('#diceButton').addEventListener('click',()=>{this.rollDice()})
-      document.querySelector('#btnDiceRoll').addEventListener('click', ()=>{
-      this.rollDice()
+      document.querySelector('#diceButton').addEventListener('click',()=>{
+        this.rollDice()
       })
-      let lgMediaQuery = window.matchMedia("(min-width : 991px)")
+      document.querySelector('#btnDiceRoll').addEventListener('click', ()=>{
+        this.rollDice()
+      })
+      document.querySelector('#btnResult').addEventListener('click', ()=>{
+        this.showStatistics()
+      })
+      // on initialise certains mediaQueries
       lgMediaQuery.addEventListener('change',()=>{
         document.querySelector(`#scoreP1`).classList.remove('mobileMode')
         document.querySelector(`#p1Score`).classList.remove('mobileMode')
         document.querySelector(`#nameP1`).classList.remove('mobileMode')
         document.querySelector(`#keepScoreP1`).classList.remove('mobileMode')
       })
-      let mdMediaQuery = window.matchMedia("(min-width : 768px)")
       mdMediaQuery.addEventListener('change',()=>{
         if(this.settings.mobileMode){
           document.querySelector(`#scoreP1`).classList.add('mobileMode')
@@ -57,12 +67,8 @@ export default class diceGame{
         }
       })
       btnCloseGame.addEventListener('click', ()=>modalNewGame.hide())
-      document.querySelector('#btnResult').addEventListener('click', ()=>{
-        this.showStatistics()
-      })
     })
   }
-
   // pour valider les réglagles (nombres de joueurs, couleurs etc...)
   validateSettings=()=>{
     let nb = this.settings.numberPlayers
@@ -79,10 +85,11 @@ export default class diceGame{
       this.validateSettings(modalNewGame)
     })
   }
-  // pour initier les scores en début de partie et les afficher
+  // pour initialiser les scores en début de partie et les afficher
   initScore=()=>{
     for(let i=0; i<this.numberPlayers();i++){
       let player = this.getPlayer(i)
+      // si le mode duel est activé
       if(this.settings.mobileMode){
         player.showValue(i, this.settings.victoryPoints)
         player.transformMobile()
@@ -104,10 +111,11 @@ export default class diceGame{
     this.setFocus(this.currentPlayer,this.numberPlayers())
     document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).addEventListener('click',()=>{this.keepScore()})
   }
-  //pour jouer
+  //pour déterminer l'action après le jet de dé
   playerPlays=(result)=>{
     let player = this.getPlayer(this.currentPlayer)
     if(result == 1){
+      // si le résultat du lancé est 1
       player.tempScore = 0
       player.dataPlayer.nb1 += 1
       player.dataPlayer.nbRollDice += 1
@@ -117,6 +125,7 @@ export default class diceGame{
       this.setPlayer()
       return
     } else{
+      // pour tout autre lancé
       player.tempScore += result
       player.dataPlayer.nbRollDice += 1
       player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}.`)
@@ -136,8 +145,8 @@ export default class diceGame{
         keepButton.classList.add('d-none')
       }
     }
-    let cadreCurrent = window[`playerCadre${currentPlayer+1}`]
-    let keepButtonCurrent = window[`keepScoreP${currentPlayer+1}`]
+    const cadreCurrent = window[`playerCadre${currentPlayer+1}`]
+    const keepButtonCurrent = window[`keepScoreP${currentPlayer+1}`]
     cadreCurrent.classList.add('border-player')
     keepButtonCurrent.classList.remove('d-none')
   }
@@ -149,8 +158,13 @@ export default class diceGame{
       player.dataPlayer.nbPointsTurn += player.tempScore
       player.tempScore=0
       player.dataPlayer.nbTurn +=1
+      // texte à afficher dans le log
       player.logGame.push(`${player.namePlayer} a choisi de garder son score de ${player.tempScore}.`)
-      player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${this.settings.victoryPoints-player.score} points.`)
+      if((this.settings.victoryPoints-player.score)<0){
+        player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Vous avez dépassé le score de ${player.score-this.settings.victoryPoints}points.`)
+      } else{
+        player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${this.settings.victoryPoints-player.score} points.`)
+      }
       player.showValue(this.currentPlayer,this.settings.victoryPoints)
       if(player.score >= this.settings.victoryPoints){
         let majPlayer = player.namePlayer.toUpperCase()
@@ -164,21 +178,23 @@ export default class diceGame{
   }
   // pour lancer le dé (animation et nombre aléatoire)
   rollDice=()=>{
-    let btnDice = document.querySelector('#diceButton')
+    const btnDice = document.querySelector('#diceButton')
     btnDice.classList.toggle('roll-dice1')
-    let dice = document.querySelector('#diceButton')
+    const dice = document.querySelector('#diceButton')
     let timerRollingDice = setInterval(()=>{
+      // on recherche et enlève le style du dé
       for(let i=1; i<7; i++){
-        if (dice.classList.contains(`dice${i}`)){
-          dice.classList.remove(`dice${i}`)
-        }
+      if (dice.classList.contains(`dice${i}`)){
+        dice.classList.remove(`dice${i}`)
+      }
       }
       let resultFace = randomDice(6)
       dice.classList.add(`dice${resultFace}`)
-    },200)
+    },150)
     setTimeout(() => {
       clearInterval(timerRollingDice)
       let diceResult = randomDice(6); 
+      // on recherche et enlève le style du dé
       for(let i=1; i<7; i++){
         if (dice.classList.contains(`dice${i}`)){
           dice.classList.remove(`dice${i}`)
@@ -193,11 +209,6 @@ export default class diceGame{
   showStatistics=()=>{
     statistics(this.numberPlayers(),this.players)
   }
-  
-
-
-
-
 }
 
 // ---------------------------------------------------------

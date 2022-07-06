@@ -1,3 +1,7 @@
+// ---------------------------------------------------------
+// IMPORTATIONS
+// ---------------------------------------------------------
+
 import dataPlayer from "./dataGame.js";
 
 // ---------------------------------------------------------
@@ -49,19 +53,12 @@ export default class gamePlayer{
     document.querySelector(`#p1Score`).classList.add('mobileMode')
     document.querySelector(`#nameP1`).classList.add('mobileMode')
     document.querySelector(`#keepScoreP1`).classList.add('mobileMode')
-    // document.querySelector(`#logAreaP1`).classList.add('mobileMode') //Pas utile en mode mobile car pas possible d'afficher le log
   }
-  transformMobileNot=()=>{
-   
-    // document.querySelector(`#logAreaP1`).classList.add('mobileMode') //Pas utile en mode mobile car pas possible d'afficher le log
-  }
-
 }
 
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES LOCALES
 // ---------------------------------------------------------
-
 
 let addFocus=(i)=>{
   let cadre = document.querySelector(`playerCadre${i}`)

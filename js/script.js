@@ -17,12 +17,10 @@ const modalHowtoPlay = new bootstrap.Modal(document.querySelector('#modalHowToPl
 globalBoard.innerHTML=""
 const autoGame = new diceGame()
 autoGame.startNewGame(modalNewGame)
-
 btnNewGame.addEventListener('click',()=>{
   const newGame = new diceGame()
   newGame.startNewGame(modalNewGame)
 })
-
 btnHowToPlay.addEventListener('click',()=>{modalHowtoPlay.show()})
 btnCloseRules.addEventListener('click',()=>{modalHowtoPlay.hide()})
 
