@@ -238,8 +238,10 @@ let cadrePlayer=(number,globalBoard,lgMediaQuery)=>{
   btnLog.addEventListener("click",()=> {
     hideLog(document.querySelector(`#logP${number}`), btnLog)
   })
+  window[`btnLogP${number}`] = document.querySelector(`#btnHideLogP${number}`,)
   lgMediaQuery.addEventListener('change', ()=>{
-    showLogBtn(document.querySelector(`#btnHideLogP${number}`))
+    console.log(window[`btnLogP${number}`])
+    showLogBtn(window[`btnLogP${number}`])
   })
 } 
 // pour modifier l'apparence visuelle des différents cadres en fonction de la couleur choisie
