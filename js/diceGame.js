@@ -39,17 +39,35 @@ export default class diceGame{
       document.querySelector('#diceButton').addEventListener('click',()=>{this.rollDice()})
       document.querySelector('#btnDiceRoll').addEventListener('click', ()=>{
       this.rollDice()
-    })
-    })
-    btnCloseGame.addEventListener('click', ()=>modalNewGame.hide())
-    document.querySelector('#btnResult').addEventListener('click', ()=>{
-      this.showStatistics()
+      })
+      let lgMediaQuery = window.matchMedia("(min-width : 991px)")
+      lgMediaQuery.addEventListener('change',()=>{
+        document.querySelector(`#scoreP1`).classList.remove('mobileMode')
+        document.querySelector(`#p1Score`).classList.remove('mobileMode')
+        document.querySelector(`#nameP1`).classList.remove('mobileMode')
+        document.querySelector(`#keepScoreP1`).classList.remove('mobileMode')
+      })
+      let mdMediaQuery = window.matchMedia("(min-width : 768px)")
+      mdMediaQuery.addEventListener('change',()=>{
+        if(this.settings.mobileMode){
+          document.querySelector(`#scoreP1`).classList.add('mobileMode')
+          document.querySelector(`#p1Score`).classList.add('mobileMode')
+          document.querySelector(`#nameP1`).classList.add('mobileMode')
+          document.querySelector(`#keepScoreP1`).classList.add('mobileMode')
+        }
+      })
+      btnCloseGame.addEventListener('click', ()=>modalNewGame.hide())
+      document.querySelector('#btnResult').addEventListener('click', ()=>{
+        this.showStatistics()
+      })
     })
   }
+
   // pour valider les réglagles (nombres de joueurs, couleurs etc...)
   validateSettings=()=>{
     let nb = this.settings.numberPlayers
     this.settings.victoryPoints = this.settings.changeVictoryPoints()
+    this.settings.mobileMode = document.querySelector('#mobileMode').checked
     this.settings.addCadrePlayers()
     this.players=[]
     for(let i=1; i<(nb+1) ; i++){
@@ -65,8 +83,14 @@ export default class diceGame{
   initScore=()=>{
     for(let i=0; i<this.numberPlayers();i++){
       let player = this.getPlayer(i)
-      player.showValue(i,this.settings.victoryPoints)
-      document.querySelector(`#nameP${i+1}`).innerHTML = player.namePlayer
+      if(this.settings.mobileMode){
+        player.showValue(i, this.settings.victoryPoints)
+        player.transformMobile()
+        document.querySelector(`#nameP${i+1}`).innerHTML = player.namePlayer
+      } else{
+        player.showValue(i,this.settings.victoryPoints)
+        document.querySelector(`#nameP${i+1}`).innerHTML = player.namePlayer
+      }
     }
   }
   //pour changer de joueur
@@ -170,7 +194,12 @@ export default class diceGame{
     statistics(this.numberPlayers(),this.players)
   }
   
+
+
+
+
 }
+
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES LOCALES
 // ---------------------------------------------------------

@@ -25,6 +25,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">Commencer une nouvelle partie</h3>
+          </div>
+          <div class="modal-body">
             <form class="d-none mb-3 d-md-block form-group">
               <label for="selectNumberPlayers" class="form-label">Sélectionner le nombre de joueurs</label>
               <select name="selectNumberPlayers" class="form-control" id="selectNumberPlayers">
@@ -33,8 +35,10 @@
                 <option value="4">4 joueurs</option>
               </select>
             </form>
-          </div>
-          <div class="modal-body">
+            <form class="mb-3 d-md-none form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="mobileMode" value="false">
+              <label for="mobileMode" class="form-label">Mode face à face</label>
+            </form>
             <form id="modalNewGameContent">
               <div class="row" id="addPlayerRow">
                 <div class="col-12 col-md-6" id="formP1">

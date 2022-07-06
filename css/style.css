@@ -22,6 +22,9 @@
   align-items: center;
   justify-content: center;
 }
+.mobileMode{
+  transform: rotate(180deg);
+}
 .background-dice{
   background-image: url(../ressources/images/dice-1-fill.svg);
   background-position: center;
@@ -34,16 +37,14 @@
 }
 .background-dice:hover{
   cursor: pointer;
-  right: 10px;
+  right:10px;
   top:10px;
 }
 .diceCadre{
   top:50%;
   left:50%;
   width: 150px;
-  text-align: center;
-  
-  
+  text-align: center; 
 }
 .dice{
   background-color: aqua;
@@ -100,7 +101,6 @@
   width: 80%;
   margin: auto auto;
 }
-
 .btnStyle{
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 20px;

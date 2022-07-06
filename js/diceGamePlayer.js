@@ -37,11 +37,23 @@ export default class gamePlayer{
     this.score=0
     this.numberTurn=0
   }
+   
   showValue=(i,vp)=>{
     document.querySelector(`#scoreP${i+1}`).innerHTML = `${this.score}/${vp}`
     document.querySelector(`#tempScoreP${i+1}`).innerHTML = this.tempScore
     document.querySelector(`#logAreaP${i+1}`).value = this.arrayToString()
     document.querySelector(`#logAreaP${i+1}`).scrollTop =  document.querySelector(`#logAreaP${i+1}`).scrollHeight
+  }
+  transformMobile=()=>{
+    document.querySelector(`#scoreP1`).classList.add('mobileMode')
+    document.querySelector(`#p1Score`).classList.add('mobileMode')
+    document.querySelector(`#nameP1`).classList.add('mobileMode')
+    document.querySelector(`#keepScoreP1`).classList.add('mobileMode')
+    // document.querySelector(`#logAreaP1`).classList.add('mobileMode') //Pas utile en mode mobile car pas possible d'afficher le log
+  }
+  transformMobileNot=()=>{
+   
+    // document.querySelector(`#logAreaP1`).classList.add('mobileMode') //Pas utile en mode mobile car pas possible d'afficher le log
   }
 
 }

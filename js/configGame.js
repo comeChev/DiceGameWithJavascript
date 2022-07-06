@@ -13,6 +13,7 @@ export default class gameSettings{
     this.numberPlayers = 2
     this.diceStyle = "#94E8E3"
     this.victoryPoints = 7
+    this.mobileMode = false
     this.innerModal = document.querySelector('#addPlayerRow')
     this.globalBoard = document.querySelector('#globalBoard')
   }
@@ -191,6 +192,7 @@ export default class gameSettings{
     addColorDiceSelector(this.innerModal)
     addVictoryPointsSelector(this.innerModal)
     document.querySelector('#selectNumberPlayers').value =2
+    document.querySelector('#mobileMode').value = false
   }
   // pour modifier les points de victoire
   changeVictoryPoints=()=>{
