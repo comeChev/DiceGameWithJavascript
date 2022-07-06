@@ -192,7 +192,7 @@ export default class gameSettings{
     addColorDiceSelector(this.innerModal)
     addVictoryPointsSelector(this.innerModal)
     document.querySelector('#selectNumberPlayers').value =2
-    document.querySelector('#mobileMode').value = false
+    document.querySelector('#mobileMode').checked = false
   }
   // pour modifier les points de victoire
   changeVictoryPoints=()=>{
