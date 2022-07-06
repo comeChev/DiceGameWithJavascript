@@ -109,6 +109,14 @@ main{
   height: 90px;
   width: 90px;
 }
+.diceModal{
+  height: 50px;
+  width: 50px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  background-position: center;
+  background-size: contain;
+}
 .btnDiceRoll{
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
@@ -118,33 +126,52 @@ main{
 .btnStyle{
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
+  border:none;
   background-position: center;
   background-size: contain;
   height: 80px;
   width: 80px;
   cursor: pointer;
 }
-.dice1{
-  background-image: url(../ressources/images/diceTransparent1.png);
+.diceDot1{
+  background-image: url(../ressources/images/diceDot1.png);
 }
-.dice2{
-  background-image: url(../ressources/images/diceTransparent2.png);
+.diceDot2{
+  background-image: url(../ressources/images/diceDot2.png);
 }
-.dice3{
-  background-image: url(../ressources/images/diceTransparent3.png);
+.diceDot3{
+  background-image: url(../ressources/images/diceDot3.png);
 }
-.dice4{
-  background-image: url(../ressources/images/diceTransparent4.png);
+.diceDot4{
+  background-image: url(../ressources/images/diceDot4.png);
 }
-.dice5{
-  background-image: url(../ressources/images/diceTransparent5.png);
+.diceDot5{
+  background-image: url(../ressources/images/diceDot5.png);
 }
-.dice6{
-  background-image: url(../ressources/images/diceTransparent6.png);
+.diceDot6{
+  background-image: url(../ressources/images/diceDot6.png);
+}
+.diceBack1{
+  background-image: url(../ressources/images/diceBack1.png);
+}
+.diceBack2{
+  background-image: url(../ressources/images/diceBack2.png);
+}
+.diceBack3{
+  background-image: url(../ressources/images/diceBack3.png);
+}
+.diceBack4{
+  background-image: url(../ressources/images/diceBack4.png);
+}
+.diceBack5{
+  background-image: url(../ressources/images/diceBack5.png);
+}
+.diceBack6{
+  background-image: url(../ressources/images/diceBack6.png);
 }
 
 /* ANIMATION DU LANCE DE DE */
-.roll-dice1{
+.roll-dice{
   transition: transform 2000ms ease-out;
   transform: rotateZ(1080deg);
 }

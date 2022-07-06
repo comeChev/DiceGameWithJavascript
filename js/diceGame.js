@@ -12,6 +12,7 @@ const btnCreateGame = document.querySelector('#btnCreateGame')
 const modalNewGame = new bootstrap.Modal(document.querySelector("#modalNewGame"));
 const lgMediaQuery = window.matchMedia("(min-width : 991px)")
 const mdMediaQuery = window.matchMedia("(min-width : 768px)")
+const navBar = document.querySelector('.navbar-collapse')
 
 // ---------------------------------------------------------
 // DECLARATION DE CLASSE
@@ -50,6 +51,9 @@ export default class diceGame{
       })
       document.querySelector('#btnResult').addEventListener('click', ()=>{
         this.showStatistics()
+        setTimeout(() => {
+          navBar.classList.remove('show')
+        }, 300);
       })
       // on initialise certains mediaQueries
       lgMediaQuery.addEventListener('change',()=>{
@@ -179,30 +183,31 @@ export default class diceGame{
   // pour lancer le dé (animation et nombre aléatoire)
   rollDice=()=>{
     const btnDice = document.querySelector('#diceButton')
-    btnDice.classList.toggle('roll-dice1')
+    let diceStyle = this.settings.diceStyle
+    btnDice.classList.toggle('roll-dice')
     const dice = document.querySelector('#diceButton')
     let timerRollingDice = setInterval(()=>{
       // on recherche et enlève le style du dé
       for(let i=1; i<7; i++){
-      if (dice.classList.contains(`dice${i}`)){
-        dice.classList.remove(`dice${i}`)
+      if (dice.classList.contains(`dice${diceStyle}${i}`)){
+        dice.classList.remove(`dice${diceStyle}${i}`)
       }
       }
       let resultFace = randomDice(6)
-      dice.classList.add(`dice${resultFace}`)
-    },150)
+      dice.classList.add(`dice${diceStyle}${resultFace}`)
+    },125)
     setTimeout(() => {
       clearInterval(timerRollingDice)
       let diceResult = randomDice(6); 
       // on recherche et enlève le style du dé
       for(let i=1; i<7; i++){
-        if (dice.classList.contains(`dice${i}`)){
-          dice.classList.remove(`dice${i}`)
+        if (dice.classList.contains(`dice${diceStyle}${i}`)){
+          dice.classList.remove(`dice${diceStyle}${i}`)
         }
       }
-      dice.classList.add(`dice${diceResult}`)
+      dice.classList.add(`dice${diceStyle}${diceResult}`)
       this.playerPlays(diceResult)
-      btnDice.classList.toggle('roll-dice1')
+      btnDice.classList.toggle('roll-dice')
     }, 2000);
   }
   //pour voir les statistiques en cours

@@ -22,6 +22,7 @@ export default class gameSettings{
     this.mobileMode = false
     this.innerModal = document.querySelector('#addPlayerRow')
     this.globalBoard = document.querySelector('#globalBoard')
+    this.diceStyle = "Dot"
   }
 
   // pour insérer un joueur dans la modale
@@ -75,7 +76,7 @@ export default class gameSettings{
       for (let i=1; i<(this.numberPlayers+1); i++){
         this.setPlayerModal(i)
       }
-      addDiceModal()
+      this.addDiceModal()
       addSelectVP()
     })
   }
@@ -101,11 +102,17 @@ export default class gameSettings{
   // pour ajouter le dé sur le board
   diceButtonAdd = ()=>{
     let colorBtn = document.querySelector('#inputStyleDice').value
+    let styleDice
+    if(this.diceStyle=="Back"){
+      styleDice="Back"
+    } else{
+      styleDice="Dot"
+    }
     let btn = document.createElement('div')
     btn.classList.add('diceCadre','position-absolute', 'translate-middle')
     btn.innerHTML=`
       <div>
-        <button class="btnStyle dice1" id="diceButton" style="background-color:${colorBtn}">
+        <button class="btnStyle dice${styleDice}1" id="diceButton" style="background-color:${colorBtn}">
         </button>
       </div>
       <div>
@@ -136,7 +143,7 @@ export default class gameSettings{
     for (let i=0; i<this.numberPlayers;i++){
       this.setPlayerModal(i+1)
     }
-    addDiceModal()
+    this.addDiceModal()
     addSelectVP()
     document.querySelector('#selectNumberPlayers').value = 2
     document.querySelector('#mobileMode').checked = false
@@ -150,6 +157,47 @@ export default class gameSettings{
       return 100
     }
   }
+  // pour ajouter le choix de couleur du dé dans la modale
+  addDiceModal=()=>{
+    let formDiceStyle = document.createElement('div')
+    formDiceStyle.classList.add('col-6')
+    formDiceStyle.setAttribute('id', 'styleDice')
+    formDiceStyle.innerHTML =
+      `<div class="mb-3 col-12">
+        <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
+        <div class="col-3">
+          <input type="color" class="form-control" id="inputStyleDice" value="#ff0000">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="selectStyleDice" class="form-label">Choisissez le style du dé</label>
+        <select type="color" class="form-control" id="selectStyleDice">
+          <option value="Dot">Points du dé colorés</option>
+          <option value="Back">Dé coloré</option>
+        </select>
+        <div class="diceModal diceDot6 mt-2"></div>
+      </div>
+      `
+    addPlayerRow.appendChild(formDiceStyle)
+    let diceModal = document.querySelector('.diceModal')
+    diceModal.setAttribute('style','background-color:#FF0000')
+    let selectDice = document.querySelector('#selectStyleDice')
+    let inputDice = document.querySelector('#inputStyleDice')
+    selectDice.addEventListener('change',()=>{
+      if (selectDice.value == "Back"){
+        diceModal.classList.remove('diceDot6')
+        diceModal.classList.add('diceBack6')
+        this.diceStyle="Back"
+      } else{
+        diceModal.classList.remove('diceBack6')
+        diceModal.classList.add('diceDot6')
+        this.diceStyle="Dot"
+      }
+    })
+    inputDice.addEventListener('change',()=>{
+      diceModal.setAttribute('style',`background-color:${inputDice.value}`)
+    })
+  }
 }
 
 // ---------------------------------------------------------
@@ -157,20 +205,6 @@ export default class gameSettings{
 // ---------------------------------------------------------
 
 
-// pour ajouter le choix de couleur du dé dans la modale
-let addDiceModal=()=>{
-  let formDiceStyle = document.createElement('div')
-  formDiceStyle.classList.add('col-6')
-  formDiceStyle.setAttribute('id', 'styleDice')
-  formDiceStyle.innerHTML =
-    `<div class="mb-3 col-12">
-      <label for="inputStyleDice" class="form-label">Choisissez le style du dé</label>
-      <div class="col-3">
-        <input type="color" class="form-control" id="inputStyleDice" value="#ff0000">
-      </div>
-    </div>`
-  addPlayerRow.appendChild(formDiceStyle)
-}
 // pour ajouter le choix du nombre de points de victoire dans la modale
 let addSelectVP=()=>{
   let div = document.createElement('div')
