@@ -8,6 +8,7 @@ import diceGame from "./diceGame.js"
 const globalBoard = document.querySelector('#globalBoard')
 const btnNewGame = document.querySelector('#btnNewGame')
 const btnHowToPlay = document.querySelector('#btnRules')
+const btnCloseRules = document.querySelector('#btnCloseRules')
 const modalHowtoPlay = new bootstrap.Modal(document.querySelector('#modalHowToPlay'))
 // ---------------------------------------------------------
 // EXECUTION DU CODE
@@ -23,6 +24,7 @@ btnNewGame.addEventListener('click',()=>{
 })
 
 btnHowToPlay.addEventListener('click',()=>{modalHowtoPlay.show()})
+btnCloseRules.addEventListener('click',()=>{modalHowtoPlay.hide()})
 
 
 
