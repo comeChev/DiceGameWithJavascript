@@ -164,15 +164,19 @@ export default class diceGame{
       player.logGame.push(`Le score en cours de ${player.namePlayer} est de ${player.tempScore}.`)
       player.showValue(this.currentPlayer, this.settings.victoryPoints)
       let randomPointsToGet = randomPoints(25)
-      if(player.tempScore >= randomPointsToGet){
-        setTimeout(() => {
+      if(player.tempScore + player.score >= this.settings.victoryPoints){
+        setTimeout(()=>{
           this.keepScore()
-        }, 1500);
-      } else{
-        setTimeout(() => {
-          this.rollDiceIA()
-        }, 1500);
-      }
+        },1500)
+         }else if(player.tempScore >= randomPointsToGet){
+          setTimeout(() => {
+            this.keepScore()
+          }, 1500);
+          }else{
+          setTimeout(() => {
+            this.rollDiceIA()
+          }, 1500);
+          }
     }
   }
   // pour modifier le focus du joueur
