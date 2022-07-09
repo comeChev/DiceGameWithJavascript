@@ -23,6 +23,7 @@ export default class gameSettings{
     this.innerModal = document.querySelector('#addPlayerRow')
     this.globalBoard = document.querySelector('#globalBoard')
     this.diceStyle = "Dot"
+    this.ia = 0
   }
 
   // pour insérer un joueur dans la modale
@@ -31,6 +32,10 @@ export default class gameSettings{
     div.classList.add('col-12', 'col-md-6')
     div.setAttribute("id",`formP${i}`)
     div.innerHTML = `
+    <div class="mb-3 form-check form-switch" id="formIaP${i}">
+      <input class="form-check-input inputIA" type="checkbox" id="iaModeP${i}">
+      <label for="iaMode" id="labelIaModeP${i}" class="form-label">IA/Ordinateur</label>
+    </div>
     <div class="mb-3">
       <label for="inputNameP${i}" class="form-label">Nom du joueur ${i}</label>
       <input type="text" class="form-control" id="inputNameP${i}" placeholder="Joueur ${i}">
@@ -76,6 +81,7 @@ export default class gameSettings{
       for (let i=1; i<(this.numberPlayers+1); i++){
         this.setPlayerModal(i)
       }
+      activateIA(this.numberPlayers, this.ia)
       this.addDiceModal()
       addSelectVP()
     })
@@ -136,6 +142,7 @@ export default class gameSettings{
     }
     this.addDiceModal()
     addSelectVP()
+    activateIA(this.numberPlayers, this.ia)
     document.querySelector('#selectNumberPlayers').value = 2
     document.querySelector('#mobileMode').checked = false
   }
@@ -189,7 +196,22 @@ export default class gameSettings{
       diceModal.setAttribute('style',`background-color:${inputDice.value}`)
     })
   }
+  getIA=(numberPlayers)=>{
+    if(numberPlayers==2){
+      for (let i=1; i<(numberPlayers+1); i++){
+        let inputIA = document.querySelector(`#iaModeP${i}`)
+        if(inputIA.checked){
+          if(inputIA.id == 'iaModeP1'){
+            return 1
+          } else if(inputIA.id == 'iaModeP2'){
+            return 2
+          }
+        }
+      }
+    }
+  }
 }
+
 
 // ---------------------------------------------------------
 // DECLARATION DES VARIABLES LOCALES
@@ -347,6 +369,42 @@ let changeNumberPlayerCadre=()=>{
         let divToRemove=document.querySelector(`#playerCadre${i}`)
         divToRemove.remove()
       }
+    }
+  }
+}
+// pour activer le choix d'IA sur joueur 1 ou joueur 2 (pas possible en 3 ou 4 joueurs)
+let activateIA=(numberPlayers, ia)=>{
+  if(numberPlayers==2){
+    for (let i=1; i<(numberPlayers+1); i++){
+      document.querySelector(`#formIaP${i}`).classList.remove('d-none')
+      let inputIA = document.querySelector(`#iaModeP${i}`)
+      inputIA.addEventListener('change',()=>{
+        if(inputIA.checked){
+          if(inputIA.id == 'iaModeP1'){
+            document.querySelector('#iaModeP2').checked=false
+            document.querySelector('#labelIaModeP1').innerHTML = 'IA activée'
+            document.querySelector('#labelIaModeP2').innerHTML = 'IA désactivée'
+            ia = 1
+            document.querySelector('#inputNameP1').value = 'IA'
+            document.querySelector('#inputNameP1').setAttribute('disabled','')
+            document.querySelector('#inputNameP2').value = 'Joueur 2'
+            document.querySelector('#inputNameP2').removeAttribute('disabled')
+          } else if(inputIA.id == 'iaModeP2'){
+            document.querySelector('#iaModeP1').checked=false
+            document.querySelector('#labelIaModeP2').innerHTML = 'IA activée'
+            document.querySelector('#labelIaModeP1').innerHTML = 'IA désactivée'
+            ia = 2
+            document.querySelector('#inputNameP1').value = 'Joueur 1'
+            document.querySelector('#inputNameP1').removeAttribute('disabled')
+            document.querySelector('#inputNameP2').value = 'IA'
+            document.querySelector('#inputNameP2').setAttribute('disabled','')
+          }
+        }
+      })
+    }
+  } else {
+    for (let i=1; i<(numberPlayers+1); i++){
+      document.querySelector(`#formIaP${i}`).classList.add('d-none')
     }
   }
 }

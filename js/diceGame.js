@@ -40,12 +40,10 @@ export default class diceGame{
     btnCreateGame.addEventListener('click',()=>{
       this.validateSettings()
       this.currentPlayer = randomPlayer(this.numberPlayers())
-      this.setFocus(this.currentPlayer,this.numberPlayers())
+      this.setPlayer()
       // on initialise les eventListeners
-      document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).addEventListener('click',()=>{this.keepScore()})
-      document.querySelector('#diceButton').addEventListener('click',()=>{
-        this.rollDice()
-      })
+      document.querySelector(`#keepScoreP${this.currentPlayer+1}`)
+      document.querySelector('#diceButton').addEventListener('click',()=>{this.rollDice()})
       document.querySelector('#btnResult').addEventListener('click', ()=>{
         this.showStatistics()
         setTimeout(() => {
@@ -72,12 +70,13 @@ export default class diceGame{
   }
   // pour valider les réglagles (nombres de joueurs, couleurs etc...)
   validateSettings=()=>{
-    let nb = this.settings.numberPlayers
     this.settings.victoryPoints = this.settings.changeVictoryPoints()
     this.settings.mobileMode = document.querySelector('#mobileMode').checked
+    this.settings.ia = this.settings.getIA(this.settings.numberPlayers)
+    console.log(`IA programmée : ${this.settings.ia}`)
     this.settings.addCadrePlayers()
     this.players=[]
-    for(let i=1; i<(nb+1) ; i++){
+    for(let i=1; i<(this.settings.numberPlayers+1) ; i++){
       this.players.push(this.settings.createPlayer(i))
     }
     this.initScore()
@@ -103,14 +102,19 @@ export default class diceGame{
   }
   //pour changer de joueur
   setPlayer =()=>{
-    document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).removeEventListener('click',()=>{this.keepScore()})
+    document.querySelector(`#keepScoreP${this.currentPlayer+1}`).removeEventListener('click',()=>{this.keepScore()})
     if(this.currentPlayer == (this.numberPlayers())-1){
       this.currentPlayer=0
     } else{
       this.currentPlayer+=1
     }
     this.setFocus(this.currentPlayer,this.numberPlayers())
-    document.querySelector(`#keepScoreP${(this.currentPlayer)+1}`).addEventListener('click',()=>{this.keepScore()})
+    let keepScore = document.querySelector(`#keepScoreP${this.currentPlayer+1}`)
+    if(this.settings.ia === this.currentPlayer+1){
+      this.rollDiceIA()
+    } else{
+      keepScore.addEventListener('click',()=>{this.keepScore()})
+    }
   }
   //pour déterminer l'action après le jet de dé
   playerPlays=(result)=>{
@@ -123,7 +127,9 @@ export default class diceGame{
       player.dataPlayer.nbTurn +=1
       player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}. ${player.namePlayer} passe son tour.`)
       player.showValue(this.currentPlayer, this.settings.victoryPoints)
-      this.setPlayer()
+      setTimeout(() => {
+        this.setPlayer()
+      }, 1500);
       return
     } else{
       // pour tout autre lancé
@@ -132,6 +138,41 @@ export default class diceGame{
       player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}.`)
       player.logGame.push(`Le score en cours de ${player.namePlayer} est de ${player.tempScore}.`)
       player.showValue(this.currentPlayer, this.settings.victoryPoints)
+    }
+  }
+
+  //pour déterminer l'action après le jet de dé
+  IaPlays=(result)=>{
+    let player = this.getPlayer(this.currentPlayer)
+    if(result == 1){
+      // si le résultat du lancé est 1
+      player.tempScore = 0
+      player.dataPlayer.nb1 += 1
+      player.dataPlayer.nbRollDice += 1
+      player.dataPlayer.nbTurn +=1
+      player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}. ${player.namePlayer} passe son tour.`)
+      player.showValue(this.currentPlayer, this.settings.victoryPoints)
+      setTimeout(() => {
+        this.setPlayer()
+      }, 1500);
+      return
+    } else{
+      // pour tout autre lancé
+      player.tempScore += result
+      player.dataPlayer.nbRollDice += 1
+      player.logGame.push(`${player.namePlayer} a effectué un lancé de ${result}.`)
+      player.logGame.push(`Le score en cours de ${player.namePlayer} est de ${player.tempScore}.`)
+      player.showValue(this.currentPlayer, this.settings.victoryPoints)
+      let randomPointsToGet = randomPoints(25)
+      if(player.tempScore >= randomPointsToGet){
+        setTimeout(() => {
+          this.keepScore()
+        }, 1500);
+      } else{
+        setTimeout(() => {
+          this.rollDiceIA()
+        }, 1500);
+      }
     }
   }
   // pour modifier le focus du joueur
@@ -157,7 +198,6 @@ export default class diceGame{
     if(player.tempScore>0){
       player.score += player.tempScore
       player.dataPlayer.nbPointsTurn += player.tempScore
-      player.tempScore=0
       player.dataPlayer.nbTurn +=1
       // texte à afficher dans le log
       player.logGame.push(`${player.namePlayer} a choisi de garder son score de ${player.tempScore}.`)
@@ -166,10 +206,10 @@ export default class diceGame{
       } else{
         player.logGame.push(`Le score total de ${player.namePlayer} est de ${player.score}. Plus que ${this.settings.victoryPoints-player.score} points.`)
       }
+      player.tempScore=0
       player.showValue(this.currentPlayer,this.settings.victoryPoints)
       if(player.score >= this.settings.victoryPoints){
         let majPlayer = player.namePlayer.toUpperCase()
-        let players = this.players
         endGame(modalNewGame,this.numberPlayers(),majPlayer,player,this.players)
         return
       }
@@ -203,10 +243,43 @@ export default class diceGame{
         }
       }
       dice.classList.add(`dice${diceStyle}${diceResult}`)
-      this.playerPlays(diceResult)
       btnDice.classList.toggle('roll-dice')
+      this.playerPlays(diceResult)
     }, 2000);
   }
+
+   // pour faire jouer l'IA
+   rollDiceIA=()=>{
+    const btnDice = document.querySelector('#diceButton')
+    let diceStyle = this.settings.diceStyle
+    btnDice.classList.toggle('roll-dice')
+    const dice = document.querySelector('#diceButton')
+    let timerRollingDice = setInterval(()=>{
+      // on recherche et enlève le style du dé
+      for(let i=1; i<7; i++){
+      if (dice.classList.contains(`dice${diceStyle}${i}`)){
+        dice.classList.remove(`dice${diceStyle}${i}`)
+      }
+      }
+      let resultFace = randomDice(6)
+      dice.classList.add(`dice${diceStyle}${resultFace}`)
+    },125)
+    setTimeout(() => {
+      clearInterval(timerRollingDice)
+      let diceResult = randomDice(6); 
+      // on recherche et enlève le style du dé
+      for(let i=1; i<7; i++){
+        if (dice.classList.contains(`dice${diceStyle}${i}`)){
+          dice.classList.remove(`dice${diceStyle}${i}`)
+        }
+      }
+      dice.classList.add(`dice${diceStyle}${diceResult}`)
+      btnDice.classList.toggle('roll-dice')
+      this.IaPlays(diceResult)
+    }, 2000);
+  }
+
+
   //pour voir les statistiques en cours
   showStatistics=()=>{
     statistics(this.numberPlayers(),this.players)
@@ -224,6 +297,10 @@ let randomPlayer=(numberPlayers)=>{
 // pour choisir un nombre aléatoire
 let randomDice=(dice)=>{
   return Math.floor(Math.random() * (dice) + 1)
+}
+// pour choisir un nombre aléatoire
+let randomPoints=(maxPoints)=>{
+  return Math.floor(Math.random() * (maxPoints) + 1)
 }
 
 
