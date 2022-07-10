@@ -114,6 +114,7 @@ export default class gameSettings{
       <div>
         <button class="btnStyle dice${styleDice}1" id="diceButton" style="background-color:${colorBtn}">
         </button>
+        <audio src="rolling-dice.mp3"></audio>
       </div>
       `
     this.globalBoard.append(btn)

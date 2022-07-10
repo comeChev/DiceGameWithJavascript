@@ -43,7 +43,12 @@ export default class diceGame{
       this.setPlayer()
       // on initialise les eventListeners
       document.querySelector(`#keepScoreP${this.currentPlayer+1}`)
-      document.querySelector('#diceButton').addEventListener('click',()=>{this.rollDice()})
+      document.querySelector('#diceButton').addEventListener('click',()=>{
+        document.querySelector('audio').play()
+        setTimeout(() => {
+          this.rollDice()
+        }, 250);
+      })
       document.querySelector('#btnResult').addEventListener('click', ()=>{
         this.showStatistics()
         setTimeout(() => {
@@ -111,7 +116,10 @@ export default class diceGame{
     this.setFocus(this.currentPlayer,this.numberPlayers())
     let keepScore = document.querySelector(`#keepScoreP${this.currentPlayer+1}`)
     if(this.settings.ia === this.currentPlayer+1){
-      this.rollDiceIA()
+      document.querySelector("audio").play()
+      setTimeout(() => {
+        this.rollDiceIA()
+      }, 250);
     } else{
       keepScore.addEventListener('click',()=>{this.keepScore()})
     }
@@ -174,7 +182,10 @@ export default class diceGame{
           }, 1500);
           }else{
           setTimeout(() => {
-            this.rollDiceIA()
+            document.querySelector('audio').play()
+            setTimeout(() => {
+              this.rollDiceIA()
+            }, 250);
           }, 1500);
           }
     }
@@ -306,5 +317,6 @@ let randomDice=(dice)=>{
 let randomPoints=(maxPoints)=>{
   return Math.floor(Math.random() * (maxPoints) + 1)
 }
+
 
 
